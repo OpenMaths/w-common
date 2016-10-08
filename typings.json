@@ -1,0 +1,15 @@
+{
+  "globalDependencies": {
+    "axios": "registry:dt/axios#0.9.1+20160629101425",
+    "chai": "registry:dt/chai#3.4.0+20160601211834",
+    "crypto-js": "registry:dt/crypto-js#3.1.4+20160708041433",
+    "es6-shim": "registry:dt/es6-shim#0.31.2+20160602141504",
+    "mocha": "registry:dt/mocha#2.2.5+20160720003353",
+    "node": "registry:dt/node#6.0.0+20161006230116",
+    "shortid": "registry:dt/shortid#0.0.0+20160316155526",
+    "sinon": "registry:dt/sinon#1.16.0+20160924120326"
+  },
+  "dependencies": {
+    "ramda": "registry:dt/ramda#0.0.0+20160824142652"
+  }
+}
