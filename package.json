@@ -1,27 +1,32 @@
 {
-  "name": "om-common",
-  "version": "0.0.1",
+  "name": "w-common",
+  "version": "0.0.0",
   "description": "OpenMaths Common",
   "main": "index.js",
   "scripts": {
     "test": "./bin/test-src"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/OpenMaths/w-common.git"
+  },
   "keywords": [
-    "openmaths"
+    "openmaths",
+    "web"
   ],
-  "author": "Slavomir Vojacek <slavomirvojacek@gmail.com>",
-  "license": "ISC",
+  "author": "Slavomir Vojacek <slavo@openmaths.io>",
+  "license": "Apache-2.0",
   "dependencies": {
-    "@reactivex/rxjs": "^5.0.0-beta.12",
-    "axios": "^0.14.0",
-    "crypto-js": "^3.1.7",
+    "@reactivex/rxjs": "5.0.0-beta.12",
+    "axios": "0.14.0",
+    "crypto-js": "3.1.7",
     "ramda": "0.22.1",
     "shortid": "2.2.6",
     "typescript": "2.0.3"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
-    "mocha": "^3.1.0",
+    "chai": "3.5.0",
+    "mocha": "3.1.0",
     "sinon": "1.17.6"
   }
 }

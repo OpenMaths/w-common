@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+# docker-machine start
+# docker-machine env
+# eval "$(docker-machine env default)"
+
+docker build -t $containerName . # --no-cache=true
+docker run -d $containerName # -p $publicPort:$containerPrivatePort

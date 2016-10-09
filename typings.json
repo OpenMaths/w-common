@@ -1,4 +1,5 @@
 {
+  "name": "w-common",
   "globalDependencies": {
     "axios": "registry:dt/axios#0.9.1+20160629101425",
     "chai": "registry:dt/chai#3.4.0+20160601211834",
