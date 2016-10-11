@@ -1,10 +1,10 @@
-import * as R from 'ramda'
-import {Observable} from '@reactivex/rxjs'
-import {ContentType, UoIId} from './Main'
-import * as ReadabilityUtils from '../ContentTypes/Readability/Utils'
-import * as StringUtils from '../_Utils/String'
+import * as R from "ramda";
+import {Observable} from "@reactivex/rxjs";
+import {ContentType, UoIId} from "./Main";
+import * as ReadabilityUtils from "../ContentTypes/Readability/Utils";
+import * as StringUtils from "../_Utils/String";
 
-export const RawSegmentDelimiter = ':';
+export const RawSegmentDelimiter = ":";
 
 export class UoIConstructor {
     readonly contentType:ContentType;
@@ -47,7 +47,7 @@ export class UoIConstructor {
      */
     static getContentTypeFromRaw(raw:RawContentType):ContentType {
         switch (raw) {
-            case 'readability':
+            case "readability":
                 return ContentType.ReadabilityContent;
             default:
                 return ContentType.Unknown;
@@ -75,9 +75,9 @@ export class UoIConstructor {
                 if (ReadabilityUtils.originAllowed(contentIdentifier))
                     return Observable.fromPromise(ReadabilityUtils.getPromise(contentIdentifier));
                 else
-                    return Observable.throw(new Error('Content Identifier ' + contentIdentifier + ' is invalid'));
+                    return Observable.throw("Content Identifier " + contentIdentifier + " is invalid");
             default:
-                return Observable.throw(new Error('No source found for Content Type ' + contentType));
+                return Observable.throw("No source found for Content Type " + contentType);
         }
     }
 }

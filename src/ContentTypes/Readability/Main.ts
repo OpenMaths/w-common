@@ -1,7 +1,7 @@
-import {ReadabilityUoI, UoIId} from '../../UoI/Main'
-import Connection from '../../UoI/Connections'
-import Property, {TitleProperty, HtmlContentProperty} from '../../UoI/Properties'
-import * as StringUtils from '../../_Utils/String'
+import {ReadabilityUoI, UoIId} from "../../UoI/Main";
+import Connection from "../../UoI/Connections";
+import Property, {TitleProperty, HtmlContentProperty} from "../../UoI/Properties";
+import * as StringUtils from "../../_Utils/String";
 
 interface IResponse {
     domain:string;
@@ -21,7 +21,14 @@ interface IResponse {
     rendered_pages:number;
 }
 
-export interface ReadabilityResponse extends Axios.AxiosXHR<IResponse> {
+export interface ReadabilitySuccessResponse extends Axios.AxiosXHR<IResponse> {
+}
+
+export interface ReadabilityErrorResponse {
+    response:Axios.AxiosXHR<{
+        messages:string;
+        error:boolean;
+    }>
 }
 
 export class ReadabilityContent {
