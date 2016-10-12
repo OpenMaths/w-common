@@ -2,7 +2,7 @@ import Property from './Properties'
 import Connection from './Connections'
 
 export type UoIId = string;
-export enum ContentType { Unknown = 1, ReadabilityContent }
+export enum ContentType { Unknown = 1, ReadabilityContent, BorgContent }
 
 export default class UoI {
     id:UoIId;
@@ -20,6 +20,16 @@ export class ReadabilityUoI extends UoI {
         super(id);
 
         this.contentType = ContentType.ReadabilityContent;
+        this.properties = properties || [];
+        this.connections = connections || [];
+    }
+}
+
+export class BorgUoI extends UoI {
+    constructor(id:UoIId, properties:Property[], connections:Connection[]) {
+        super(id);
+
+        this.contentType = ContentType.BorgContent;
         this.properties = properties || [];
         this.connections = connections || [];
     }
