@@ -4,6 +4,7 @@ import * as sinon from "sinon";
 import {RawSegmentDelimiter, UoIConstructor} from "./Constructor";
 import {ContentType} from "./Main";
 import * as ReadabilityUtils from "../ContentTypes/Readability/Utils";
+import * as BorgUtils from "../ContentTypes/Borg/Utils";
 import * as StringUtils from "../_Utils/String";
 
 describe("Models/UoI/Constructor", () => {
@@ -14,6 +15,8 @@ describe("Models/UoI/Constructor", () => {
     describe("getRawContentType", () => {
         const getRawContentTypeScenarios = [
             ["readability:url", "readability"],
+            ["borg:identifier", "borg"],
+            [" borg:query", "borg"],
             ["anotherSource:http://test.com", "anotherSource"],
             ["differentSource:http://test.com?query=something&anotherQuery=a:b", "differentSource"],
             ["", ""],
@@ -33,6 +36,7 @@ describe("Models/UoI/Constructor", () => {
     describe("getRawContentIdentifier", () => {
         const getRawContentIdentifierScenarios = [
             ["readability:url", "url"],
+            ["borg: query ", "query"],
             ["anotherSource:http://test.com", "http://test.com"],
             ["differentSource:http://test.com?query=something&anotherQuery=a:b", "http://test.com?query=something&anotherQuery=a:b"],
             ["", ""],
@@ -52,6 +56,8 @@ describe("Models/UoI/Constructor", () => {
     describe("getContentType", () => {
         const getContentTypeScenarios = [
             ["readability", ContentType.ReadabilityContent],
+            ["borg", ContentType.BorgContent],
+            ["Borg", ContentType.Unknown],
             ["unknown", ContentType.Unknown],
             ["", ContentType.Unknown]
         ];
@@ -77,13 +83,19 @@ describe("Models/UoI/Constructor", () => {
             sandbox.restore();
         });
 
-        it("correctly gets content identifier from raw content identifier for SGVsbG8sIFdvcmxkIQ==", () => {
+        const rawIdentifier = StringUtils.encodeBase64("Hello, World!");
+
+        it("correctly gets content identifier from raw content identifier for " + rawIdentifier, () => {
             const spy = sandbox.spy(StringUtils, "decodeBase64");
 
-            // Has to be valid base64 string to pass
-            const contentIdentifier = UoIConstructor.getContentIdentifierFromRaw("SGVsbG8sIFdvcmxkIQ==");
+            const contentIdentifier = UoIConstructor.getContentIdentifierFromRaw(rawIdentifier);
             expect(spy.calledOnce).to.equal(true);
             expect(R.equals(typeof contentIdentifier, "string")).to.equal(true);
+            expect(contentIdentifier).to.equal("Hello, World!");
+        });
+
+        it("throws if invalid base64 string provided", () => {
+            expect(() => UoIConstructor.getContentIdentifierFromRaw("  ")).to.throw();
         });
     });
 
@@ -103,6 +115,15 @@ describe("Models/UoI/Constructor", () => {
 
             // Has to be valid href to pass
             const promise = UoIConstructor.getObservable(ContentType.ReadabilityContent, "http://theguardian.com");
+            expect(spy.calledOnce).to.equal(true);
+            expect(R.equals(typeof promise, "object")).to.equal(true);
+        });
+
+        it("calls BorgUtils.getApiInstance() and returns an Observable when ContentType is Borg", () => {
+            const spy = sandbox.spy(BorgUtils, "getApiInstance");
+
+            // Has to be valid href to pass
+            const promise = UoIConstructor.getObservable(ContentType.BorgContent, "query");
             expect(spy.calledOnce).to.equal(true);
             expect(R.equals(typeof promise, "object")).to.equal(true);
         });
@@ -140,7 +161,8 @@ describe("Models/UoI/Constructor", () => {
 
     describe("constructor", () => {
         let sandbox:any,
-            validHrefBase64Encoded = "aHR0cDovL3RoZWd1YXJkaWFuLmNvbQ=="; // http://theguardian.com
+            rawReadabilityIdentifier = StringUtils.encodeBase64("http://theguardian.com"),
+            rawBorgIdentifier = StringUtils.encodeBase64("How to do this?");
 
         beforeEach(() => {
             sandbox = sinon.sandbox.create();
@@ -150,19 +172,46 @@ describe("Models/UoI/Constructor", () => {
             sandbox.restore();
         });
 
-        it("correctly assigns contentType upon construction", () => {
+        it("[ReadabilityContent] correctly assigns contentType upon construction", () => {
             const
                 spy = sandbox.spy(UoIConstructor, "getContentTypeFromRaw"),
-                constructor = new UoIConstructor("readability:" + validHrefBase64Encoded);
+                constructor = new UoIConstructor("readability:" + rawReadabilityIdentifier);
 
             expect(spy.calledOnce).to.equal(true);
             expect(R.equals(typeof constructor.contentType, undefined)).to.equal(false);
         });
 
-        it("correctly assigns contentIdentifier upon construction", () => {
+        it("[BorgContent] correctly assigns contentType upon construction", () => {
+            const
+                spy = sandbox.spy(UoIConstructor, "getContentTypeFromRaw"),
+                constructor = new UoIConstructor("borg:" + rawBorgIdentifier);
+
+            expect(spy.calledOnce).to.equal(true);
+            expect(R.equals(typeof constructor.contentType, undefined)).to.equal(false);
+        });
+
+        it("[ReadabilityContent] correctly assigns contentIdentifier upon construction", () => {
             const
                 spy = sandbox.spy(UoIConstructor, "getContentIdentifierFromRaw"),
-                constructor = new UoIConstructor("readability:" + validHrefBase64Encoded);
+                constructor = new UoIConstructor("readability:" + rawReadabilityIdentifier);
+
+            expect(spy.calledOnce).to.equal(true);
+            expect(R.equals(typeof constructor.contentIdentifier, undefined)).to.equal(false);
+        });
+
+        it("[BorgContent] correctly assigns contentIdentifier upon construction", () => {
+            const
+                spy = sandbox.spy(UoIConstructor, "getContentIdentifierFromRaw"),
+                constructor = new UoIConstructor("borg:" + rawBorgIdentifier);
+
+            expect(spy.calledOnce).to.equal(true);
+            expect(R.equals(typeof constructor.contentIdentifier, undefined)).to.equal(false);
+        });
+
+        it("correctly assigns contentIdentifier upon construction when unknown content type provided", () => {
+            const
+                spy = sandbox.spy(UoIConstructor, "getContentIdentifierFromRaw"),
+                constructor = new UoIConstructor("not-implemented:" + rawBorgIdentifier);
 
             expect(spy.calledOnce).to.equal(true);
             expect(R.equals(typeof constructor.contentIdentifier, undefined)).to.equal(false);
@@ -171,7 +220,7 @@ describe("Models/UoI/Constructor", () => {
         it("correctly assigns resolveObservable upon construction", () => {
             const
                 spy = sandbox.spy(UoIConstructor, "getObservable"),
-                constructor = new UoIConstructor("readability:" + validHrefBase64Encoded);
+                constructor = new UoIConstructor("readability:" + rawReadabilityIdentifier);
 
             expect(spy.calledOnce).to.equal(true);
             expect(R.equals(typeof constructor.resolveObservable, undefined)).to.equal(false);

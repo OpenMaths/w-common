@@ -2,6 +2,7 @@ import * as R from "ramda";
 import {Observable} from "@reactivex/rxjs";
 import {ContentType, UoIId} from "./Main";
 import * as ReadabilityUtils from "../ContentTypes/Readability/Utils";
+import * as BorgUtils from "../ContentTypes/Borg/Utils";
 import * as StringUtils from "../_Utils/String";
 
 export const RawSegmentDelimiter = ":";
@@ -27,7 +28,7 @@ export class UoIConstructor {
      */
     static getRawContentType(raw:string):RawContentType {
         const segments = R.split(RawSegmentDelimiter, raw);
-        return R.head(segments);
+        return R.trim(R.head(segments));
     }
 
     /**
@@ -37,7 +38,7 @@ export class UoIConstructor {
      */
     static getRawContentIdentifier(raw:string):RawContentIdentifier {
         const segments = R.split(RawSegmentDelimiter, raw);
-        return R.join(RawSegmentDelimiter, R.tail(segments));
+        return R.trim(R.join(RawSegmentDelimiter, R.tail(segments)));
     }
 
     /**
@@ -49,6 +50,8 @@ export class UoIConstructor {
         switch (raw) {
             case "readability":
                 return ContentType.ReadabilityContent;
+            case "borg":
+                return ContentType.BorgContent;
             default:
                 return ContentType.Unknown;
         }
@@ -76,6 +79,8 @@ export class UoIConstructor {
                     return Observable.fromPromise(ReadabilityUtils.getPromise(contentIdentifier));
                 else
                     return Observable.throw("Content Identifier " + contentIdentifier + " is invalid");
+            case ContentType.BorgContent:
+                return Observable.fromPromise(BorgUtils.getPromise(contentIdentifier));
             default:
                 return Observable.throw("No source found for Content Type " + contentType);
         }
