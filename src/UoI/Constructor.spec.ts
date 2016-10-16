@@ -56,7 +56,7 @@ describe("Models/UoI/Constructor", () => {
     describe("getContentType", () => {
         const getContentTypeScenarios = [
             ["readability", ContentType.ReadabilityContent],
-            ["borg", ContentType.BorgContent],
+            ["borg", ContentType.BorgAnswer],
             ["Borg", ContentType.Unknown],
             ["unknown", ContentType.Unknown],
             ["", ContentType.Unknown]
@@ -123,7 +123,7 @@ describe("Models/UoI/Constructor", () => {
             const spy = sandbox.spy(BorgUtils, "getApiInstance");
 
             // Has to be valid href to pass
-            const promise = UoIConstructor.getObservable(ContentType.BorgContent, "query");
+            const promise = UoIConstructor.getObservable(ContentType.BorgAnswer, "query");
             expect(spy.calledOnce).to.equal(true);
             expect(R.equals(typeof promise, "object")).to.equal(true);
         });
