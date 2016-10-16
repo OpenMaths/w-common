@@ -1,13 +1,12 @@
-import Property from './Properties'
-import Connection from './Connections'
+import Connection from "./Connections";
 
 export type UoIId = string;
-export enum ContentType { Unknown = 1, ReadabilityContent, BorgContent }
+export enum ContentType { Unknown = 1, ReadabilityContent, BorgAnswer }
 
-export default class UoI {
+export default class UoI<T> {
     id:UoIId;
     contentType:ContentType;
-    properties:Property[];
+    properties:T;
     connections:Connection[];
 
     constructor(id:UoIId) {
@@ -15,8 +14,8 @@ export default class UoI {
     }
 }
 
-export class ReadabilityUoI extends UoI {
-    constructor(id:UoIId, properties:Property[], connections:Connection[]) {
+export class ReadabilityUoI<T> extends UoI<T> {
+    constructor(id:UoIId, properties:T, connections:Connection[]) {
         super(id);
 
         this.contentType = ContentType.ReadabilityContent;
@@ -25,11 +24,11 @@ export class ReadabilityUoI extends UoI {
     }
 }
 
-export class BorgUoI extends UoI {
-    constructor(id:UoIId, properties:Property[], connections:Connection[]) {
+export class BorgUoI<T> extends UoI<T> {
+    constructor(id:UoIId, properties:T, connections:Connection[]) {
         super(id);
 
-        this.contentType = ContentType.BorgContent;
+        this.contentType = ContentType.BorgAnswer;
         this.properties = properties || [];
         this.connections = connections || [];
     }

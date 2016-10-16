@@ -1,6 +1,6 @@
 import * as axios from "axios";
 
-export const BaseURL = "https://ok-b.org:9993";
+export const BaseURL = "http://ok-b.org:9992";
 export const QueryUrl = "/v1/query";
 
 /**

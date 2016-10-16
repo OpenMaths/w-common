@@ -51,7 +51,7 @@ export class UoIConstructor {
             case "readability":
                 return ContentType.ReadabilityContent;
             case "borg":
-                return ContentType.BorgContent;
+                return ContentType.BorgAnswer;
             default:
                 return ContentType.Unknown;
         }
@@ -79,7 +79,7 @@ export class UoIConstructor {
                     return Observable.fromPromise(ReadabilityUtils.getPromise(contentIdentifier));
                 else
                     return Observable.throw("Content Identifier " + contentIdentifier + " is invalid");
-            case ContentType.BorgContent:
+            case ContentType.BorgAnswer:
                 return Observable.fromPromise(BorgUtils.getPromise(contentIdentifier));
             default:
                 return Observable.throw("No source found for Content Type " + contentType);

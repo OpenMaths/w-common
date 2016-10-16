@@ -1,6 +1,6 @@
 import {ReadabilityUoI, UoIId} from "../../UoI/Main";
 import Connection from "../../UoI/Connections";
-import Property, {TitleProperty, HtmlContentProperty} from "../../UoI/Properties";
+import {TitleProperty, HtmlContentProperty} from "../../UoI/Properties";
 import * as StringUtils from "../../_Utils/String";
 
 interface IResponse {
@@ -31,9 +31,11 @@ export interface ReadabilityErrorResponse {
     }>
 }
 
+type Properties = Array<TitleProperty|HtmlContentProperty>;
+
 export class ReadabilityContent {
     readonly id:string;
-    properties:Property[];
+    properties:Properties;
     connections:Connection[];
 
     constructor(data:IResponse, id:UoIId) {
@@ -44,7 +46,7 @@ export class ReadabilityContent {
         this.properties.push(new HtmlContentProperty(data.content));
     }
 
-    getUoI():ReadabilityUoI {
+    getUoI():ReadabilityUoI<Properties> {
         return new ReadabilityUoI(this.id, this.properties, this.connections);
     }
 }

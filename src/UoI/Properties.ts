@@ -1,24 +1,35 @@
-export enum PropertyType {Title = 1, HtmlContent}
+import {IResponse as BorgAnswer} from "../ContentTypes/Borg/Main";
+export enum PropertyType {Title = 1, HtmlContent, BorgAnswer}
 
-export default class Property {
+export default class Property<T> {
     propertyType:PropertyType;
-    property:string;
-}
+    property:T;
 
-export class TitleProperty extends Property {
-    constructor(title:string) {
-        super();
-
-        this.propertyType = PropertyType.Title;
-        this.property = title;
+    constructor(property:T) {
+        this.property = property;
     }
 }
 
-export class HtmlContentProperty extends Property {
+export class TitleProperty extends Property<string> {
+    constructor(title:string) {
+        super(title);
+
+        this.propertyType = PropertyType.Title;
+    }
+}
+
+export class HtmlContentProperty extends Property<string> {
     constructor(htmlContent:string) {
-        super();
+        super(htmlContent);
 
         this.propertyType = PropertyType.HtmlContent;
-        this.property = htmlContent;
+    }
+}
+
+export class BorgAnswerProperty extends Property<BorgAnswer[]> {
+    constructor(data:BorgAnswer[]) {
+        super(data);
+
+        this.propertyType = PropertyType.BorgAnswer;
     }
 }
