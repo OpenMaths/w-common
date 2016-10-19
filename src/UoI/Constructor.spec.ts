@@ -3,8 +3,6 @@ import * as R from "ramda";
 import * as sinon from "sinon";
 import {RawSegmentDelimiter, UoIConstructor} from "./Constructor";
 import {ContentType} from "./Main";
-import * as ReadabilityUtils from "../ContentTypes/Readability/Utils";
-import * as BorgUtils from "../ContentTypes/Borg/Utils";
 import * as StringUtils from "../_Utils/String";
 
 describe("Models/UoI/Constructor", () => {
@@ -99,66 +97,6 @@ describe("Models/UoI/Constructor", () => {
         });
     });
 
-    describe("getObservable", () => {
-        let sandbox:any;
-
-        beforeEach(() => {
-            sandbox = sinon.sandbox.create();
-        });
-
-        afterEach(() => {
-            sandbox.restore();
-        });
-
-        it("calls ReadabilityUtils.getApiInstance() and returns an Observable when ContentType is Readability", () => {
-            const spy = sandbox.spy(ReadabilityUtils, "getApiInstance");
-
-            // Has to be valid href to pass
-            const promise = UoIConstructor.getObservable(ContentType.ReadabilityContent, "http://theguardian.com");
-            expect(spy.calledOnce).to.equal(true);
-            expect(R.equals(typeof promise, "object")).to.equal(true);
-        });
-
-        it("calls BorgUtils.getApiInstance() and returns an Observable when ContentType is Borg", () => {
-            const spy = sandbox.spy(BorgUtils, "getApiInstance");
-
-            // Has to be valid href to pass
-            const promise = UoIConstructor.getObservable(ContentType.BorgAnswer, "query");
-            expect(spy.calledOnce).to.equal(true);
-            expect(R.equals(typeof promise, "object")).to.equal(true);
-        });
-
-        it("returns an Observable that throws an error when identifier invalid", (done) => {
-            const spy = sandbox.spy(ReadabilityUtils, "getApiInstance");
-
-            const Observable = UoIConstructor.getObservable(ContentType.ReadabilityContent, "google.com");
-            expect(spy.calledOnce).to.equal(false);
-
-            Observable.subscribe(success => {
-                done();
-            }, (error:string) => {
-                // @TODO test correct error message is returned => abstract all errors into a const?
-                expect(R.equals(typeof error, "string")).to.equal(true);
-                done();
-            })
-        });
-
-        it("returns an Observable that throws an error when ContentType is Unknown", (done) => {
-            const spy = sandbox.spy(ReadabilityUtils, "getApiInstance");
-
-            const Observable = UoIConstructor.getObservable(ContentType.Unknown, "identifier");
-            expect(spy.calledOnce).to.equal(false);
-
-            Observable.subscribe(success => {
-                done();
-            }, (error:string) => {
-                // @TODO test correct error message is returned => abstract all errors into a const?
-                expect(R.equals(typeof error, "string")).to.equal(true);
-                done();
-            })
-        });
-    });
-
     describe("constructor", () => {
         let sandbox:any,
             rawReadabilityIdentifier = StringUtils.encodeBase64("http://theguardian.com"),
@@ -215,15 +153,6 @@ describe("Models/UoI/Constructor", () => {
 
             expect(spy.calledOnce).to.equal(true);
             expect(R.equals(typeof constructor.contentIdentifier, undefined)).to.equal(false);
-        });
-
-        it("correctly assigns resolveObservable upon construction", () => {
-            const
-                spy = sandbox.spy(UoIConstructor, "getObservable"),
-                constructor = new UoIConstructor("readability:" + rawReadabilityIdentifier);
-
-            expect(spy.calledOnce).to.equal(true);
-            expect(R.equals(typeof constructor.resolveObservable, undefined)).to.equal(false);
         });
     });
 });

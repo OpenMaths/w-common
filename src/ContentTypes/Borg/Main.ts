@@ -2,6 +2,7 @@ import {BorgUoI, UoIId} from "../../UoI/Main";
 import Connection from "../../UoI/Connections";
 import {TitleProperty, BorgAnswerProperty} from "../../UoI/Properties";
 import * as StringUtils from "../../_Utils/String";
+import {AxiosSuccessResponse, AxiosErrorResponse} from "../../_Utils/Api";
 
 enum Source {stackoverflow}
 
@@ -26,14 +27,10 @@ export interface IResponse {
     LastUpdated:string;
 }
 
-export interface BorgSuccessResponse extends Axios.AxiosXHR<IResponse[]> {
+export interface BorgSuccessResponse extends AxiosSuccessResponse<IResponse[]> {
 }
 
-export interface BorgErrorResponse {
-    response:Axios.AxiosXHR<{
-        messages:string;
-        error:boolean;
-    }>
+export interface BorgErrorResponse extends AxiosErrorResponse<{}> {
 }
 
 type Properties = Array<TitleProperty|BorgAnswerProperty>;

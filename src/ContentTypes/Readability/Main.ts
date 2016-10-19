@@ -2,6 +2,7 @@ import {ReadabilityUoI, UoIId} from "../../UoI/Main";
 import Connection from "../../UoI/Connections";
 import {TitleProperty, HtmlContentProperty} from "../../UoI/Properties";
 import * as StringUtils from "../../_Utils/String";
+import {AxiosSuccessResponse, AxiosErrorResponse} from "../../_Utils/Api";
 
 interface IResponse {
     domain:string;
@@ -21,14 +22,10 @@ interface IResponse {
     rendered_pages:number;
 }
 
-export interface ReadabilitySuccessResponse extends Axios.AxiosXHR<IResponse> {
+export interface ReadabilitySuccessResponse extends AxiosSuccessResponse<IResponse> {
 }
 
-export interface ReadabilityErrorResponse {
-    response:Axios.AxiosXHR<{
-        messages:string;
-        error:boolean;
-    }>
+export interface ReadabilityErrorResponse extends AxiosErrorResponse<{messages:string;error:boolean;}> {
 }
 
 type Properties = Array<TitleProperty|HtmlContentProperty>;
