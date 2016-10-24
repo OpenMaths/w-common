@@ -2,9 +2,13 @@ import {Observable} from "@reactivex/rxjs";
 
 export enum ApiMethod {UNKNOWN = 1, GET, POST, PUT, DELETE}
 
+export interface ApiParams {
+    [key: string]: string;
+}
+
 export interface IApi<T, U> {
     readonly operation:U;
-    readonly params:Object|undefined;
+    readonly params:ApiParams|undefined;
     readonly data:T|undefined;
     getMethod:() => ApiMethod;
     getBaseUrl:() => string;
