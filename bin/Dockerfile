@@ -5,10 +5,16 @@ FROM node:6.6.0
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
-COPY package.json /usr/src/app/
-RUN npm install
-
 COPY . /usr/src/app/
 
+RUN npm install yarn -g
+RUN yarn install
+RUN yarn clean
+
+RUN mv .env.production .env
+
+RUN ./bin/compile-src
+RUN ./bin/test-src
+
 EXPOSE 8080
-CMD [ "npm", "start" ]
+CMD ["./bin/run"]

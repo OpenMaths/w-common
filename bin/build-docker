@@ -5,4 +5,4 @@
 # eval "$(docker-machine env default)"
 
 docker build -t $containerName . # --no-cache=true
-docker run -d $containerName # -p $publicPort:$containerPrivatePort
+docker run -p $publicPort:$containerPrivatePort -d $containerName

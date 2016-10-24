@@ -9,7 +9,7 @@ Thumbs.db
 .idea
 
 .env
-.env.production
+.yarnclean
 
 dist
 
