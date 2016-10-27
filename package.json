@@ -4,6 +4,7 @@
   "description": "OpenMaths Common",
   "main": "index.js",
   "scripts": {
+    "compile:src": "./bin/compile-src",
     "test": "./bin/test-src"
   },
   "repository": {

@@ -1,0 +1,27 @@
+# machine: adjusting the VM to your preferences and requirements
+
+machine:
+  node:
+    version: 6.6.0
+
+# checkout: checking out and cloning your git repo
+
+# dependencies: setting up your project’s language-specific dependencies
+
+dependencies:
+  pre:
+    - npm install yarn -g
+  override:
+    - yarn
+  post:
+    - npm run compile:src
+
+# database: preparing the databases for your tests
+
+# test: running your tests
+
+test:
+  override:
+    - npm test
+
+# deployment: deploying your code to your web servers
