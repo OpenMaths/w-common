@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/OpenMaths/w-common.svg?style=svg)](https://circleci.com/gh/OpenMaths/w-common)
+
 This repository contains shared assets for all our Web-based projects. It should serve as a guide and a place wherefrom to acquire business logic, configurations, scripts, etc in order to reuse within other projects.
 
 ## To Contribute
