@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/OpenMaths/w-common.svg?style=svg)](https://circleci.com/gh/OpenMaths/w-common)
+[![CircleCI](https://circleci.com/gh/OpenMaths/w-common/tree/master.svg?style=svg&circle-token=63306f31adb56905ae3662f2db1b85d3a9e0054f)](https://circleci.com/gh/OpenMaths/w-common/tree/master)
 
 This repository contains shared assets for all our Web-based projects. It should serve as a guide and a place wherefrom to acquire business logic, configurations, scripts, etc in order to reuse within other projects.
 
