@@ -7,7 +7,7 @@ WORKDIR /usr/src/app
 
 COPY . /usr/src/app/
 
-RUN npm install yarn -g
+RUN npm install yarn -g --silent
 RUN yarn
 
 RUN mv .env.production .env
@@ -17,4 +17,4 @@ RUN ./bin/compile-src
 RUN ./bin/test-src
 
 EXPOSE 8080
-CMD ["./bin/run"]
+CMD ["npm", "start"]

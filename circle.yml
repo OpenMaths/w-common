@@ -10,7 +10,7 @@ machine:
 
 dependencies:
   pre:
-    - npm install yarn -g
+    - npm install yarn -g --silent
   override:
     - yarn
   post:
