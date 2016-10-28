@@ -2,18 +2,21 @@ This repository contains shared assets for all our Web-based projects. It should
 
 ## To Contribute
 
-Checkout a new branch, then:
+Please use yarn to manage dependencies:
 
-    npm install
+    npm install yarn -g
+
+Pull repo, then:
+
+    yarn
     
     # Write tests
     # Cruft around
     # Write tests
     
-    ./bin/compile-src
-    ./bin/test-src
+    npm run compile:src && npm test
     
-Finally push your brunch upstream and create a Pull Request.
+Finally push your changes upstream and create a Pull Request. Tests will run automatically through CircleCI.
 
 ### Notes
 

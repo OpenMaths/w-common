@@ -1,4 +1,5 @@
 import {Observable} from "@reactivex/rxjs";
+import {AxiosInstance} from "axios/axios";
 
 export enum ApiMethod {UNKNOWN = 1, GET, POST, PUT, DELETE}
 
@@ -19,14 +20,7 @@ export interface IApi<T, U> {
     getSampleData:() => any;
 }
 
-export interface AxiosErrorResponse<T> {
-    response:Axios.AxiosXHR<T>
-}
-
-export interface AxiosSuccessResponse<T> extends Axios.AxiosXHR<T> {
-}
-
 export interface INetwork<C> {
-    getHttpInstance:(config:C) => Axios.AxiosInstance;
+    getHttpInstance:(config:C) => AxiosInstance;
     request:<T,U>(operation:T, params?:Object, data?:U) => Observable<any>;
 }
