@@ -9,7 +9,7 @@ Thumbs.db
 .idea
 
 .env
-.env.production
+# .env.production intentionally left out
 
 dist/
 bower_components/
