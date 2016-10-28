@@ -1,5 +1,5 @@
 import {Observable} from "@reactivex/rxjs";
-import {AxiosInstance} from "axios/axios";
+import {AxiosInstance} from "axios";
 
 export enum ApiMethod {UNKNOWN = 1, GET, POST, PUT, DELETE}
 

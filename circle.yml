@@ -14,6 +14,7 @@ dependencies:
   override:
     - yarn
   post:
+    - ./bin/override-typings
     - npm run compile:src
 
 # database: preparing the databases for your tests
