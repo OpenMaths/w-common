@@ -8,11 +8,11 @@ WORKDIR /usr/src/app
 COPY . /usr/src/app/
 
 RUN npm install yarn -g
-RUN yarn install
-RUN yarn clean
+RUN yarn
 
 RUN mv .env.production .env
 
+RUN ./bin/override-typings
 RUN ./bin/compile-src
 RUN ./bin/test-src
 
