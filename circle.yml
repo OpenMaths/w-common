@@ -11,6 +11,8 @@ machine:
 dependencies:
   pre:
     - npm install yarn -g --silent
+    - cp .env.example .env
+    - cp .env .env.production
   override:
     - yarn
   post:
