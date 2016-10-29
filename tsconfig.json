@@ -16,8 +16,8 @@
     "target": "es5"
   },
   "include": [
-    "./src/**/*",
-    "./typings/index.d.ts"
+    "./typings/index.d.ts",
+    "./src/**/*"
   ],
   "exclude": [
     "./node_modules"
