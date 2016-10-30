@@ -23,7 +23,10 @@ export default class UoI implements IUoI {
         this.id = id;
     }
 
-    // @TODO add tests
+    /**
+     * Returns the TitleProperty of this UoI Instance, empty title when none found
+     * @returns {TitleProperty}
+     */
     getTitleProperty():TitleProperty {
         const
             functor = (property:Property<any>) => property instanceof TitleProperty,
