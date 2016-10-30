@@ -1,6 +1,6 @@
 import {BorgUoI, UoIId} from "../../UoI/Main";
 import Connection from "../../UoI/Connections";
-import {TitleProperty, BorgAnswerProperty} from "../../UoI/Properties";
+import Property, {TitleProperty, BorgAnswerProperty} from "../../UoI/Properties";
 import * as StringUtils from "../../_Utils/String";
 import {AxiosResponse, AxiosError} from "axios/axios";
 
@@ -27,17 +27,17 @@ export interface IResponse {
     LastUpdated:string;
 }
 
+// @TODO figure out if we use it
 export interface BorgSuccessResponse extends AxiosResponse<IResponse[]> {
 }
 
+// @TODO figure out if we use it
 export interface BorgErrorResponse extends AxiosError<{}> {
 }
 
-type Properties = Array<TitleProperty|BorgAnswerProperty>;
-
 export class BorgAnswer {
     readonly id:string;
-    properties:Properties;
+    properties:Property<any>[];
     connections:Connection[];
 
     constructor(data:IResponse[], id:UoIId) {
@@ -48,7 +48,7 @@ export class BorgAnswer {
         this.properties.push(new BorgAnswerProperty(data));
     }
 
-    getUoI():BorgUoI<Properties> {
+    getUoI():BorgUoI {
         return new BorgUoI(this.id, this.properties, this.connections);
     }
 }

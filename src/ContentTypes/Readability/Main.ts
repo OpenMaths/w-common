@@ -1,6 +1,6 @@
 import {ReadabilityUoI, UoIId} from "../../UoI/Main";
 import Connection from "../../UoI/Connections";
-import {TitleProperty, HtmlContentProperty} from "../../UoI/Properties";
+import Property, {TitleProperty, HtmlContentProperty} from "../../UoI/Properties";
 import * as StringUtils from "../../_Utils/String";
 import {AxiosError, AxiosResponse} from "axios/axios";
 
@@ -22,17 +22,17 @@ interface IResponse {
     rendered_pages:number;
 }
 
+// @TODO figure out if we use it
 export interface ReadabilitySuccessResponse extends AxiosResponse<IResponse> {
 }
 
+// @TODO figure out if we use it
 export interface ReadabilityErrorResponse extends AxiosError<{messages:string;error:boolean;}> {
 }
 
-type Properties = Array<TitleProperty|HtmlContentProperty>;
-
 export class ReadabilityContent {
     readonly id:string;
-    properties:Properties;
+    properties:Property<any>[];
     connections:Connection[];
 
     constructor(data:IResponse, id:UoIId) {
@@ -43,7 +43,7 @@ export class ReadabilityContent {
         this.properties.push(new HtmlContentProperty(data.content));
     }
 
-    getUoI():ReadabilityUoI<Properties> {
+    getUoI():ReadabilityUoI {
         return new ReadabilityUoI(this.id, this.properties, this.connections);
     }
 }
