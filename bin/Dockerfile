@@ -4,8 +4,9 @@ FROM ubuntu:latest
 RUN apt-get update && apt-get install -y wget nano curl sudo
 
 # Install node 6.x
-RUN wget -qO- https://deb.nodesource.com/setup_6.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_6.x | bash
 RUN apt-get install -y nodejs
+RUN apt-get install -y build-essential
 
 # Install yarn
 RUN curl -o- -L https://yarnpkg.com/install.sh | bash
@@ -16,6 +17,8 @@ COPY . /usr/src/www/
 
 # Change work dir
 WORKDIR /usr/src/www
+
+RUN mv .env.production .env
 
 # Install dependencies
 RUN $HOME/.yarn/bin/yarn install
