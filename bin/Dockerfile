@@ -1,20 +1,30 @@
-# More info https://nodejs.org/en/docs/guides/nodejs-docker-webapp/
+FROM ubuntu:latest
 
-FROM node:6.6.0
+# Set up the machine
+RUN apt-get update && apt-get install -y wget nano curl sudo
 
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
+# Install node 6.x
+RUN wget -qO- https://deb.nodesource.com/setup_6.x | bash -
+RUN apt-get install -y nodejs
 
-COPY . /usr/src/app/
+# Install yarn
+RUN npm install yarn -g
 
-RUN npm install yarn -g --silent
-RUN yarn
+# Create new directory and copy source files across
+RUN mkdir /usr/src/www
+COPY . /usr/src/www/
 
-RUN mv .env.production .env
+# Change work dir
+WORKDIR /usr/src/www
 
+# Install dependencies
+RUN sudo yarn install
 RUN ./bin/override-typings
-RUN ./bin/compile-src
-RUN ./bin/test-src
+RUN npm run compile:src
 
-EXPOSE 8080
-CMD ["npm", "start"]
+# Run tests
+RUN npm test
+
+EXPOSE 80
+
+CMD ./bin/serve-src

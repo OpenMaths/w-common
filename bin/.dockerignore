@@ -5,4 +5,12 @@ Thumbs.db
 
 .*-cache
 *.log
+*.css
 .idea
+
+.env
+# .env.production Intentionally left out!
+
+dist/
+bower_components/
+node_modules/
