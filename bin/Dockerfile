@@ -2,30 +2,25 @@ FROM ubuntu:latest
 
 # Set up the machine
 RUN apt-get update && apt-get install -y wget nano curl sudo
-
-# Install node 6.x and latest npm
 RUN curl -sL https://deb.nodesource.com/setup_6.x | bash
 RUN apt-get install -y nodejs
-RUN apt-get install -y build-essential
-RUN npm install npm@latest -g
 
-RUN npm install yarn -g
+# Create new directory and change work dir
+RUN mkdir /usr/openmaths
+WORKDIR /usr/openmaths
 
 # Install yarn
-#RUN curl -o- -L https://yarnpkg.com/install.sh | bash
+# RUN npm install yarn -g
 
-# Create new directory and copy source files across
-RUN mkdir /usr/src/www
-COPY . /usr/src/www/
+# Copy source files across
+COPY . /usr/openmaths
 
-# Change work dir
-WORKDIR /usr/src/www
-
+# Set up .env correctly (based on .env.production)
 RUN mv .env.production .env
 
 # Install dependencies
-#RUN $HOME/.yarn/bin/yarn install
-RUN yarn install
+# RUN yarn install Doesn't work with CircleCI at the minute
+RUN npm install
 RUN ./bin/override-typings
 RUN npm run compile:src
 
