@@ -8,7 +8,7 @@ RUN wget -qO- https://deb.nodesource.com/setup_6.x | bash -
 RUN apt-get install -y nodejs
 
 # Install yarn
-RUN npm install yarn -g
+RUN curl -o- -L https://yarnpkg.com/install.sh | bash
 
 # Create new directory and copy source files across
 RUN mkdir /usr/src/www
@@ -18,7 +18,7 @@ COPY . /usr/src/www/
 WORKDIR /usr/src/www
 
 # Install dependencies
-RUN sudo yarn install
+RUN $HOME/.yarn/bin/yarn install
 RUN ./bin/override-typings
 RUN npm run compile:src
 
