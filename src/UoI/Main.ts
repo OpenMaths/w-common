@@ -32,9 +32,14 @@ export default class UoI implements IUoI {
             functor = (property:Property<any>) => property instanceof TitleProperty,
             prop = find(functor, this.properties);
 
+        // @TODO change to "Untitled" rather than empty string?
         return prop ? (prop as TitleProperty) : (new TitleProperty(''));
     }
 
+    /**
+     * Returns all LabelProperties of this UoI Instance, empty list when none found
+     * @returns {LabelProperty[]}
+     */
     getLabelProperties():LabelProperty[] {
         const functor = (property:Property<any>) => property instanceof LabelProperty;
 
