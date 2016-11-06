@@ -1,6 +1,6 @@
-import {find} from "ramda";
+import {find, filter} from "ramda";
 import Connection from "./Connections";
-import Property, {TitleProperty} from "./Properties";
+import Property, {TitleProperty, LabelProperty} from "./Properties";
 
 export type UoIId = string;
 export enum ContentType { Unknown = 1, ReadabilityContent, BorgAnswer }
@@ -33,6 +33,12 @@ export default class UoI implements IUoI {
             prop = find(functor, this.properties);
 
         return prop ? (prop as TitleProperty) : (new TitleProperty(''));
+    }
+
+    getLabelProperties():LabelProperty[] {
+        const functor = (property:Property<any>) => property instanceof LabelProperty;
+
+        return filter(functor, this.properties);
     }
 }
 

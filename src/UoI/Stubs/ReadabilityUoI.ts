@@ -1,13 +1,16 @@
 import {ReadabilityUoI} from "../Main";
-import Property, {TitleProperty, HtmlContentProperty} from "../Properties";
+import Property, {TitleProperty, HtmlContentProperty, LabelProperty} from "../Properties";
 import Connection from "../Connections";
 
-let properties:Property<any>[] = [],
-    connections:Connection[] = [];
+function getNewReadabilityUoI() {
+    let properties:Property<any>[] = [],
+        connections:Connection[] = [];
 
-properties.push(new TitleProperty('Title'));
-properties.push(new HtmlContentProperty('<div></div>'));
+    properties.push(new TitleProperty('Title'));
+    properties.push(new HtmlContentProperty('<div></div>'));
+    properties.push(new LabelProperty('Website'));
 
-const UoI = new ReadabilityUoI('id', properties, connections);
+    return new ReadabilityUoI('id', properties, connections);
+}
 
-export default UoI;
+export default getNewReadabilityUoI;
