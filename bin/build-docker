@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-# docker-machine start
-# docker-machine env
-# eval "$(docker-machine env default)"
-
-docker rm -f $containerName || true
-docker build -t $containerName .
-docker run -p $publicPort:$containerPrivatePort --name $containerName -d $containerName

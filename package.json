@@ -2,10 +2,8 @@
   "name": "w-common",
   "version": "0.0.0",
   "description": "OpenMaths Common",
-  "main": "index.js",
   "scripts": {
-    "compile:src": "./bin/compile-src",
-    "test": "./bin/test-src"
+    "test": "./bin/test-src.sh"
   },
   "repository": {
     "type": "git",

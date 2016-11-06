@@ -4,13 +4,11 @@ FROM ubuntu:latest
 RUN apt-get update && apt-get install -y wget nano curl sudo
 RUN curl -sL https://deb.nodesource.com/setup_6.x | bash
 RUN apt-get install -y nodejs
+# RUN npm install yarn -g
 
 # Create new directory and change work dir
 RUN mkdir /usr/openmaths
 WORKDIR /usr/openmaths
-
-# Install yarn
-# RUN npm install yarn -g
 
 # Copy source files across
 COPY . /usr/openmaths
@@ -21,12 +19,12 @@ RUN mv .env.production .env
 # Install dependencies
 # RUN yarn install Doesn't work with CircleCI at the minute
 RUN npm install
-RUN ./bin/override-typings
-RUN npm run compile:src
+RUN ./bin/override-typings.sh
+RUN ./bin/compile-src.sh
 
 # Run tests
-RUN npm test
+RUN ./bin/test-src.sh
 
 EXPOSE 80
 
-CMD ./bin/serve-src
+CMD ./bin/serve-src.sh

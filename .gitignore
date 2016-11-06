@@ -10,6 +10,7 @@ Thumbs.db
 
 .env
 .env.production
+gcloud-service-key.json
 
 dist/
 bower_components/

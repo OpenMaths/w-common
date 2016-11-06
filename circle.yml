@@ -1,12 +1,6 @@
-# machine: adjusting the VM to your preferences and requirements
-
 machine:
   node:
     version: 6.6.0
-
-# checkout: checking out and cloning your git repo
-
-# dependencies: setting up your project’s language-specific dependencies
 
 dependencies:
   pre:
@@ -16,15 +10,9 @@ dependencies:
   override:
     - yarn
   post:
-    - ./bin/override-typings
-    - npm run compile:src
-
-# database: preparing the databases for your tests
-
-# test: running your tests
+    - ./bin/override-typings.sh
+    - ./bin/compile-src.sh
 
 test:
   override:
-    - npm test
-
-# deployment: deploying your code to your web servers
+    - ./bin/test-src.sh
