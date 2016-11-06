@@ -11,6 +11,7 @@ export interface IUoI {
     properties:Property<any>[];
     connections:Connection[];
     getTitleProperty:() => TitleProperty;
+    getLabelProperties:() => LabelProperty[];
 }
 
 export default class UoI implements IUoI {
@@ -21,6 +22,9 @@ export default class UoI implements IUoI {
 
     constructor(id:UoIId) {
         this.id = id;
+        this.contentType = ContentType.Unknown;
+        this.properties = [];
+        this.connections = [];
     }
 
     /**
