@@ -2,8 +2,10 @@ import {expect} from "chai";
 import * as R from "ramda";
 import * as sinon from "sinon";
 import {RawSegmentDelimiter, UoIConstructor} from "./Constructor";
-import {ContentType} from "./Main";
-import * as StringUtils from "../_Utils/String";
+import * as StringUtils from "../Utils/String";
+import {ReadabilityUoIType} from "./Readability/Main";
+import {BorgUoIType} from "./Borg/Main";
+import {UnknownUoIType} from "./Unknown/Main";
 
 describe("Models/UoI/Constructor", () => {
     it("exports correct rawSegmentDelimiter", () => {
@@ -53,11 +55,11 @@ describe("Models/UoI/Constructor", () => {
 
     describe("getContentType", () => {
         const getContentTypeScenarios = [
-            ["readability", ContentType.ReadabilityContent],
-            ["borg", ContentType.BorgAnswer],
-            ["Borg", ContentType.Unknown],
-            ["unknown", ContentType.Unknown],
-            ["", ContentType.Unknown]
+            ["readability", ReadabilityUoIType.ReadabilityContent],
+            ["borg", BorgUoIType.BorgAnswer],
+            ["Borg", UnknownUoIType.Unknown],
+            ["unknown", UnknownUoIType.Unknown],
+            ["", UnknownUoIType.Unknown]
         ];
 
         const testGetContentType = (scenario:string[]) => {

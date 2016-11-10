@@ -1,11 +1,15 @@
 import {head, join, split, tail, trim} from "ramda";
-import {ContentType, UoIId} from "./Main";
-import * as StringUtils from "../_Utils/String";
+import {UoIId, UoIType} from "./Main";
+import * as StringUtils from "../Utils/String";
+import {ReadabilityUoIType} from "./Readability/Main";
+import {BorgUoIType} from "./Borg/Main";
+import {UnknownUoIType} from "./Unknown/Main";
 
 export const RawSegmentDelimiter = ":";
 
 export class UoIConstructor {
-    readonly contentType:ContentType;
+    // @TODO rename to type and identifier
+    readonly contentType:UoIType;
     readonly contentIdentifier:UoIId;
 
     constructor(raw:string) {
@@ -38,16 +42,16 @@ export class UoIConstructor {
     /**
      * Assigns correct ContentType based on raw content type
      * @param {RawContentType} raw
-     * @returns {ContentType}
+     * @returns {UoIType}
      */
-    static getContentTypeFromRaw(raw:RawContentType):ContentType {
+    static getContentTypeFromRaw(raw:RawContentType):UoIType {
         switch (raw) {
             case "readability":
-                return ContentType.ReadabilityContent;
+                return ReadabilityUoIType.ReadabilityContent;
             case "borg":
-                return ContentType.BorgAnswer;
+                return BorgUoIType.BorgAnswer;
             default:
-                return ContentType.Unknown;
+                return UnknownUoIType.Unknown;
         }
     }
 

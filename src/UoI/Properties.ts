@@ -1,4 +1,5 @@
-import {IResponse as BorgAnswer} from "../ContentTypes/Borg/Main";
+import {BorgProblem} from "./Borg/Main";
+
 export enum PropertyType {Title = 1, HtmlContent, BorgAnswer, Label}
 
 export default class Property<T> {
@@ -26,8 +27,8 @@ export class HtmlContentProperty extends Property<string> {
     }
 }
 
-export class BorgAnswerProperty extends Property<BorgAnswer[]> {
-    constructor(data:BorgAnswer[]) {
+export class BorgAnswerProperty extends Property<BorgProblem[]> {
+    constructor(data:BorgProblem[]) {
         super(data);
 
         this.propertyType = PropertyType.BorgAnswer;

@@ -1,5 +1,5 @@
 import {contains} from "ramda";
-import * as UrlUtils from "../../_Utils/Url";
+import * as UrlUtils from "../../Utils/Url";
 
 export const AllowedHostnames = ['theguardian.com', 'wikipedia.com'];
 

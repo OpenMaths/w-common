@@ -1,13 +1,17 @@
 import {find, filter} from "ramda";
 import Connection from "./Connections";
 import Property, {TitleProperty, LabelProperty} from "./Properties";
+import {BorgUoIType} from "./Borg/Main";
+import {ReadabilityUoIType} from "./Readability/Main";
+import {UnknownUoIType} from "./Unknown/Main";
+import * as StringUtils from "../Utils/String";
 
 export type UoIId = string;
-export enum ContentType { Unknown = 1, ReadabilityContent, BorgAnswer }
+export type UoIType = BorgUoIType | ReadabilityUoIType | UnknownUoIType;
 
 export interface IUoI {
     id:UoIId;
-    contentType:ContentType;
+    type:UoIType;
     properties:Property<any>[];
     connections:Connection[];
     getTitleProperty:() => TitleProperty;
@@ -16,13 +20,13 @@ export interface IUoI {
 
 export default class UoI implements IUoI {
     id:UoIId;
-    contentType:ContentType;
+    type:UoIType;
     properties:Property<any>[];
     connections:Connection[];
 
     constructor(id:UoIId) {
-        this.id = id;
-        this.contentType = ContentType.Unknown;
+        this.id = StringUtils.encodeBase64(id);
+        // this.type = undefined;
         this.properties = [];
         this.connections = [];
     }
@@ -48,25 +52,5 @@ export default class UoI implements IUoI {
         const functor = (property:Property<any>) => property instanceof LabelProperty;
 
         return filter(functor, this.properties);
-    }
-}
-
-export class ReadabilityUoI extends UoI {
-    constructor(id:UoIId, properties:Property<any>[], connections:Connection[]) {
-        super(id);
-
-        this.contentType = ContentType.ReadabilityContent;
-        this.properties = properties || [];
-        this.connections = connections || [];
-    }
-}
-
-export class BorgUoI extends UoI {
-    constructor(id:UoIId, properties:Property<any>[], connections:Connection[]) {
-        super(id);
-
-        this.contentType = ContentType.BorgAnswer;
-        this.properties = properties || [];
-        this.connections = connections || [];
     }
 }

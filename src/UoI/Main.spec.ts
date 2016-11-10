@@ -1,7 +1,7 @@
 import {expect} from "chai";
 import {forEach} from "ramda";
 import {TitleProperty, LabelProperty} from "./Properties";
-import StubReadabilityUoI from "./Stubs/ReadabilityUoI";
+import StubReadabilityUoI from "./Readability/Fake";
 
 describe('UoI/Main', () => {
     describe('getTitleProperty', () => {
