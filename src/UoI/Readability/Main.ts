@@ -32,4 +32,4 @@ export class ReadabilityUoI extends UoI {
     }
 }
 
-export const ReadabilityUoISample = new ReadabilityUoI('id', 'Title', '<div></div>');
+export const ReadabilityUoISample = () => new ReadabilityUoI('id', 'Title', '<div></div>');

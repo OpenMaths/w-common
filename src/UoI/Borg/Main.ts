@@ -37,4 +37,4 @@ export class BorgUoI extends UoI {
     }
 }
 
-export const BorgUoISample = new BorgUoI('How many lines in a file?', []);
+export const BorgUoISample = () => new BorgUoI('How many lines in a file?', []);

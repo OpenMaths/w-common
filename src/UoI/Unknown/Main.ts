@@ -10,4 +10,4 @@ export class UnknownUoI extends UoI {
     }
 }
 
-export const UnknownUoISample = new UoI('id');
+export const UnknownUoISample = () => new UoI('id');
