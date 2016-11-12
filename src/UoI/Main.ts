@@ -1,6 +1,6 @@
 import {find, filter} from "ramda";
 import Connection from "./Connections";
-import Property, {TitleProperty, LabelProperty} from "./Properties";
+import Property, {TitleProperty, LabelProperty, HtmlContentProperty} from "./Properties";
 import {BorgUoIType} from "./Borg/Main";
 import {ReadabilityUoIType} from "./Readability/Main";
 import {UnknownUoIType} from "./Unknown/Main";
@@ -32,7 +32,7 @@ export default class UoI implements IUoI {
     }
 
     /**
-     * Returns the TitleProperty of this UoI Instance, empty title when none found
+     * Returns the TitleProperty of this UoI Instance, empty TitleProperty when none found
      * @returns {TitleProperty}
      */
     getTitleProperty():TitleProperty {
@@ -42,6 +42,18 @@ export default class UoI implements IUoI {
 
         // @TODO change to "Untitled" rather than empty string?
         return prop ? (prop as TitleProperty) : (new TitleProperty(''));
+    }
+
+    /**
+     * Returns the HtmlContentProperty of this UoI Instance, empty HtmlContentProperty when none found
+     * @returns {HtmlContentProperty}
+     */
+    getHtmlContentProperty():HtmlContentProperty {
+        const
+            functor = (property:Property<any>) => property instanceof HtmlContentProperty,
+            prop = find(functor, this.properties);
+
+        return prop ? (prop as HtmlContentProperty) : (new HtmlContentProperty(''));
     }
 
     /**

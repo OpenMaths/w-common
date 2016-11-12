@@ -1,6 +1,6 @@
 import {expect} from "chai";
 import {forEach} from "ramda";
-import {TitleProperty, LabelProperty} from "./Properties";
+import {TitleProperty, LabelProperty, HtmlContentProperty} from "./Properties";
 import {ReadabilityUoISample} from "./Readability/Main";
 
 describe('UoI/Main', () => {
@@ -25,6 +25,30 @@ describe('UoI/Main', () => {
 
             expect(uoi.getTitleProperty() instanceof TitleProperty).to.equal(true);
             expect(uoi.getTitleProperty().property).to.equal('');
+        });
+    });
+
+    describe('getHtmlContentProperty', () => {
+        it('should correctly extract the HtmlContentProperty', () => {
+            const uoi = ReadabilityUoISample();
+
+            expect(uoi.getHtmlContentProperty() instanceof HtmlContentProperty).to.equal(true);
+        });
+
+        it('should correctly extract the first HtmlContentProperty if more are present', () => {
+            const uoi = ReadabilityUoISample();
+            uoi.properties.push(new HtmlContentProperty('<small></small>'));
+
+            expect(uoi.getHtmlContentProperty() instanceof HtmlContentProperty).to.equal(true);
+            expect(uoi.getHtmlContentProperty().property).to.equal('<div></div>');
+        });
+
+        it('should correctly extract a HtmlContentProperty with empty content if no HtmlContentProperty was found', () => {
+            const uoi = ReadabilityUoISample();
+            uoi.properties = [];
+
+            expect(uoi.getHtmlContentProperty() instanceof HtmlContentProperty).to.equal(true);
+            expect(uoi.getHtmlContentProperty().property).to.equal('');
         });
     });
 
