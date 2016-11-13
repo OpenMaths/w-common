@@ -280,7 +280,7 @@ describe('Models/Grid/Main', () => {
         });
     });
 
-    describe('applyEvent', () => {
+    describe('applyGraphEvent', () => {
         let sandbox:any;
 
         beforeEach(() => {
