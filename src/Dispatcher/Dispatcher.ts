@@ -8,6 +8,7 @@ import App from '../Grid/Main'
  * @returns {Main}
  */
 export const getLatestState = (prev:App, event:Events.GraphEvent):App => {
+    // @TODO might need to use clone due to Redux here..
     return prev.applyEvent(event);
 };
 
@@ -18,6 +19,7 @@ export const getLatestState = (prev:App, event:Events.GraphEvent):App => {
  * @returns {Main}
  */
 export const constructLatestState = (prev:App, events:Events.GraphEvent[]):App => {
+    // @TODO might need to use clone due to Redux here..
     let latestState = prev;
 
     events.forEach((event:Events.GraphEvent, index:number) => {
