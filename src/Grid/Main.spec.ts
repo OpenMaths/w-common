@@ -103,10 +103,10 @@ describe('Models/Grid/Main', () => {
             app.createColumn(CreateColumnEvent);
 
             const
-                column = app.nodesTable[CreateContainerEvent.nodeId],
-                parentRowId = app.getParentContainerId(column);
+                column = app.nodesTable[CreateColumnEvent.nodeId],
+                parentContainerId = app.getParentContainerId(column);
 
-            expect(parentRowId).to.equal(CreateContainerEvent.parentId);
+            expect(parentContainerId).to.equal(CreateContainerEvent.nodeId);
         });
     });
 

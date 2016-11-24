@@ -45,7 +45,7 @@ describe('Models/Dispatcher', () => {
                 main = new App(),
                 CreateGraphEvent = new Events.CreateGraphEvent();
 
-            const applyEventSpy = sandbox.spy(main, 'applyGraphEvent');
+            const applyEventSpy = sandbox.spy(main, 'applyEvent');
 
             const latestState = getLatestState(main, CreateGraphEvent);
 

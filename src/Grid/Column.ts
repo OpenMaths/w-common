@@ -10,6 +10,7 @@ export default class Column implements ISingleChildNode<Container|ContentHolder>
 
     constructor(event:CreateColumnEvent) {
         this.nodeId = event.nodeId;
+        this.parentId = event.parentId;
     }
 
     insertChild(child:Container|ContentHolder) {
