@@ -92,7 +92,7 @@ describe('Models/Grid/Main', () => {
         const CreateGraphEvent = new Events.CreateGraphEvent();
         const insertIndex = 0;
 
-        it('throws if column\'s parent not present in nodesTable', () => {
+        it('correctly returns the closest (parent) Container nodeId', () => {
             const app = new Main();
             app.createGraph(CreateGraphEvent);
             const CreateContainerEvent = new Events.CreateContainerEvent(CreateGraphEvent.graphId, CreateGraphEvent.graphId);
