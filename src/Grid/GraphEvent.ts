@@ -28,7 +28,7 @@ export const generateNodeId = (action:Action):string => {
 
 export class GraphEvent {
     graphId:string;
-    parentId:string|null;
+    parentId:string;
     nodeId:string;
     actionType:Action;
     timestamp:Date;
@@ -37,7 +37,7 @@ export class GraphEvent {
 
     constructor(graphId:string, parentId:string|null, nodeId:string, actionType:Action, insertIndex?:number|undefined, rawUoIConstructor?:string|undefined) {
         this.graphId = graphId;
-        this.parentId = parentId;
+        this.parentId = parentId || '';
         this.nodeId = nodeId;
         this.actionType = actionType;
         this.timestamp = new Date();

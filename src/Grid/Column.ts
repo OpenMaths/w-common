@@ -5,7 +5,8 @@ import ContentHolder from './ContentHolder'
 
 export default class Column implements ISingleChildNode<Container|ContentHolder> {
     readonly nodeId:string;
-    child:Container|ContentHolder;
+    readonly parentId:string;
+    child:Container|ContentHolder; // @TODO this should be optional / possibly undefined......
 
     constructor(event:CreateColumnEvent) {
         this.nodeId = event.nodeId;

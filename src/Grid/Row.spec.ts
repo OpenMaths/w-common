@@ -13,6 +13,13 @@ describe('Models/Grid/Row', () => {
             expect(row.nodeId).to.equal(CreateRowEvent.nodeId);
         });
 
+        it('assigns parentId upon construction', () => {
+            const CreateRowEvent = new Events.CreateRowEvent('graphId', 'parentId', 0);
+
+            const row = new Row(CreateRowEvent);
+            expect(row.parentId).to.equal(CreateRowEvent.parentId);
+        });
+
         it('creates empty list of children upon construction', () => {
             const CreateRowEvent = new Events.CreateRowEvent('graphId', 'parentId', 0);
 

@@ -45,7 +45,7 @@ describe('Models/Grid/GraphEvent', () => {
 
             expect(event instanceof GraphEvent).to.equal(true);
             expect(event.graphId.substring(0, GraphNodeIdPrefix.length)).to.equal(GraphNodeIdPrefix);
-            expect(event.parentId).to.equal(null);
+            expect(event.parentId).to.equal('');
             expect(event.nodeId.substring(0, GraphNodeIdPrefix.length)).to.equal(GraphNodeIdPrefix);
             expect(event.actionType).to.equal(Action.CreateGraph);
             expect(event.timestamp instanceof Date).to.equal(true);

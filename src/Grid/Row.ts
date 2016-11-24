@@ -5,10 +5,12 @@ import Column from './Column'
 
 export default class Row implements INode<Column> {
     readonly nodeId:string;
+    readonly parentId:string;
     children:Column[];
 
     constructor(event:CreateRowEvent) {
         this.nodeId = event.nodeId;
+        this.parentId = event.parentId;
         this.children = [];
     }
 

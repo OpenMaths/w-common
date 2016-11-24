@@ -58,6 +58,20 @@ export default class Main {
             return false;
     }
 
+    getParentContainerId(column: Column) {
+        if (column instanceof Column) {
+            const parentRow = this.nodesTable[column.parentId] as Row;
+
+            if (parentRow instanceof Row) {
+                return parentRow.parentId;
+            } else {
+                throw new Error('Column\'s parent not instance of Column');
+            }
+        } else {
+            throw new Error('Getting Parent Container nodeId can only be instantiated with an instance of Column');
+        }
+    }
+
     /**
      * Assigns new graph and adds its node to nodesTable
      * @param event {CreateGraphEvent}

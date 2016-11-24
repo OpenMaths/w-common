@@ -88,6 +88,28 @@ describe('Models/Grid/Main', () => {
         });
     });
 
+    describe('getParentContainerId', () => {
+        const CreateGraphEvent = new Events.CreateGraphEvent();
+        const insertIndex = 0;
+
+        it('throws if column\'s parent not present in nodesTable', () => {
+            const app = new Main();
+            app.createGraph(CreateGraphEvent);
+            const CreateContainerEvent = new Events.CreateContainerEvent(CreateGraphEvent.graphId, CreateGraphEvent.graphId);
+            app.createContainer(CreateContainerEvent);
+            const CreateRowEvent = new Events.CreateRowEvent(CreateGraphEvent.graphId, CreateContainerEvent.nodeId, insertIndex);
+            app.createRow(CreateRowEvent);
+            const CreateColumnEvent = new Events.CreateColumnEvent(CreateGraphEvent.graphId, CreateRowEvent.nodeId, insertIndex);
+            app.createColumn(CreateColumnEvent);
+
+            const
+                column = app.nodesTable[CreateContainerEvent.nodeId],
+                parentRowId = app.getParentContainerId(column);
+
+            expect(parentRowId).to.equal(CreateContainerEvent.parentId);
+        });
+    });
+
     describe('createGraph', () => {
         it('creates a Graph given appropriate GraphEvent and updates Main.graph and Main.nodesTable', () => {
             const CreateGraphEvent = new Events.CreateGraphEvent();
@@ -311,7 +333,7 @@ describe('Models/Grid/Main', () => {
             const main = new Main();
 
             const
-                createGraphSpy = sandbox.spy(main, 'createContainer'),
+                createContainerSpy = sandbox.spy(main, 'createContainer'),
                 CreateContainerEvent = new Events.CreateContainerEvent('graphId', 'parentId');
 
             try {
@@ -320,14 +342,14 @@ describe('Models/Grid/Main', () => {
                 // do nothing..
             }
 
-            expect(createGraphSpy.called).to.equal(true);
+            expect(createContainerSpy.called).to.equal(true);
         });
 
         it('correctly calls Main.createRow()', () => {
             const main = new Main();
 
             const
-                createGraphSpy = sandbox.spy(main, 'createRow'),
+                createRowSpy = sandbox.spy(main, 'createRow'),
                 CreateRowEvent = new Events.CreateRowEvent('graphId', 'parentId', 0);
 
             try {
@@ -336,14 +358,14 @@ describe('Models/Grid/Main', () => {
                 // do nothing..
             }
 
-            expect(createGraphSpy.called).to.equal(true);
+            expect(createRowSpy.called).to.equal(true);
         });
 
         it('correctly calls Main.createColumn()', () => {
             const main = new Main();
 
             const
-                createGraphSpy = sandbox.spy(main, 'createColumn'),
+                createColumnSpy = sandbox.spy(main, 'createColumn'),
                 CreateColumnEvent = new Events.CreateColumnEvent('graphId', 'parentId', 0);
 
             try {
@@ -352,14 +374,14 @@ describe('Models/Grid/Main', () => {
                 // do nothing..
             }
 
-            expect(createGraphSpy.called).to.equal(true);
+            expect(createColumnSpy.called).to.equal(true);
         });
 
         it('correctly calls Main.createContentHolder()', () => {
             const main = new Main();
 
             const
-                createGraphSpy = sandbox.spy(main, 'createContentHolder'),
+                createContentHolderSpy = sandbox.spy(main, 'createContentHolder'),
                 CreateContentHolderEvent = new Events.CreateContentHolderEvent('graphId', 'parentId', 'RawUoIConstructor');
 
             try {
@@ -368,7 +390,7 @@ describe('Models/Grid/Main', () => {
                 // do nothing..
             }
 
-            expect(createGraphSpy.called).to.equal(true);
+            expect(createContentHolderSpy.called).to.equal(true);
         });
     });
 });
