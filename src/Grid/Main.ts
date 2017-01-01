@@ -58,7 +58,55 @@ export default class Main {
             return false;
     }
 
-    getParentContainerId(column: Column) {
+    // @TODO TEST the below
+    getColumnIndex(column:Column) {
+        if (column instanceof Column) {
+            const parentRow = this.nodesTable[column.parentId] as Row;
+
+            if (parentRow instanceof Row) {
+                const index = R.findIndex((child:Column) => R.equals(child.nodeId, column.nodeId), parentRow.children);
+
+                if (R.lt(index, 0)) {
+                    throw new Error('Index of Column not found in Row');
+                } else {
+                    return index;
+                }
+            } else {
+                throw new Error('Column\'s parent not instance of Row');
+            }
+        } else {
+            throw new Error('Getting Column index can only be instantiated with an instance of Column');
+        }
+    }
+
+    // @TODO TEST the below
+    getRowIndex(column:Column) {
+        if (column instanceof Column) {
+            const parentRow = this.nodesTable[column.parentId] as Row;
+
+            if (parentRow instanceof Row) {
+                const parentContainer = this.nodesTable[parentRow.parentId] as Container;
+
+                if (parentContainer instanceof Container) {
+                    const index = R.findIndex((child:Row) => R.equals(child.nodeId, parentRow.nodeId), parentContainer.children);
+
+                    if (R.lt(index, 0)) {
+                        throw new Error('Index of Row not found in Container');
+                    } else {
+                        return index;
+                    }
+                } else {
+                    throw new Error('Row\'s parent not instance of Container');
+                }
+            } else {
+                throw new Error('Column\'s parent not instance of Row');
+            }
+        } else {
+            throw new Error('Getting Column index can only be instantiated with an instance of Column');
+        }
+    }
+
+    getParentContainerId(column:Column) {
         if (column instanceof Column) {
             const parentRow = this.nodesTable[column.parentId] as Row;
 
