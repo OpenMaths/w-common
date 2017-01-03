@@ -88,6 +88,58 @@ describe('Models/Grid/Main', () => {
         });
     });
 
+    describe('getColumnIndex', () => {
+        const CreateGraphEvent = new Events.CreateGraphEvent();
+        const insertIndex = 0;
+
+        it('correctly returns column index', () => {
+            const app = new Main();
+            app.createGraph(CreateGraphEvent);
+            const CreateContainerEvent = new Events.CreateContainerEvent(CreateGraphEvent.graphId, CreateGraphEvent.graphId);
+            app.createContainer(CreateContainerEvent);
+            const CreateRowEvent = new Events.CreateRowEvent(CreateGraphEvent.graphId, CreateContainerEvent.nodeId, insertIndex);
+            app.createRow(CreateRowEvent);
+            const CreateColumn1Event = new Events.CreateColumnEvent(CreateGraphEvent.graphId, CreateRowEvent.nodeId, insertIndex);
+            app.createColumn(CreateColumn1Event);
+            const CreateColumn2Event = new Events.CreateColumnEvent(CreateGraphEvent.graphId, CreateRowEvent.nodeId, insertIndex + 1);
+            app.createColumn(CreateColumn2Event);
+
+            const
+              column = app.nodesTable[CreateColumn2Event.nodeId],
+              columnIndex = app.getColumnIndex(column);
+
+            expect(columnIndex).to.equal(insertIndex + 1);
+        });
+    });
+
+    describe('getRowIndex', () => {
+        const CreateGraphEvent = new Events.CreateGraphEvent();
+        const insertIndex = 0;
+
+        it('correctly returns row index', () => {
+            const app = new Main();
+            app.createGraph(CreateGraphEvent);
+            const CreateContainerEvent = new Events.CreateContainerEvent(CreateGraphEvent.graphId, CreateGraphEvent.graphId);
+            app.createContainer(CreateContainerEvent);
+
+            const CreateRow1Event = new Events.CreateRowEvent(CreateGraphEvent.graphId, CreateContainerEvent.nodeId, insertIndex);
+            app.createRow(CreateRow1Event);
+            const CreateColumn1Event = new Events.CreateColumnEvent(CreateGraphEvent.graphId, CreateRow1Event.nodeId, insertIndex);
+            app.createColumn(CreateColumn1Event);
+
+            const CreateRow2Event = new Events.CreateRowEvent(CreateGraphEvent.graphId, CreateContainerEvent.nodeId, insertIndex + 1);
+            app.createRow(CreateRow2Event);
+            const CreateColumn2Event = new Events.CreateColumnEvent(CreateGraphEvent.graphId, CreateRow2Event.nodeId, insertIndex);
+            app.createColumn(CreateColumn2Event);
+
+            const
+              column = app.nodesTable[CreateColumn2Event.nodeId],
+              rowIndex = app.getRowIndex(column);
+
+            expect(rowIndex).to.equal(insertIndex + 1);
+        });
+    });
+
     describe('getParentContainerId', () => {
         const CreateGraphEvent = new Events.CreateGraphEvent();
         const insertIndex = 0;

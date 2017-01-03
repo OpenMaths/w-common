@@ -1,7 +1,10 @@
 import * as R from 'ramda'
 import * as shortid from 'shortid'
 
-export enum Action {CreateGraph = 1, CreateContainer, CreateRow, CreateColumn, CreateContentHolder, RemoveRow}
+export enum Action {
+    CreateGraph = 1, CreateContainer, CreateRow, CreateColumn, CreateContentHolder,
+    RemoveRow, RemoveContentHolder
+}
 
 export const GraphNodeIdPrefix = 'g_';
 export const ContainerNodeIdPrefix = 'c_';
@@ -81,9 +84,14 @@ export class CreateContentHolderEvent extends GraphEvent {
     }
 }
 
-// Experimental
 export class RemoveRowEvent extends GraphEvent {
     constructor(graphId:string, parentId:string, nodeId:string) {
         super(graphId, parentId, nodeId, Action.RemoveRow);
+    }
+}
+
+export class RemoveContentHolderEvent extends GraphEvent {
+    constructor(graphId:string, parentId:string, nodeId:string) {
+        super(graphId, parentId, nodeId, Action.RemoveContentHolder);
     }
 }

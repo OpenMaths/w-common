@@ -58,7 +58,6 @@ export default class Main {
             return false;
     }
 
-    // @TODO TEST the below
     getColumnIndex(column:Column) {
         if (column instanceof Column) {
             const parentRow = this.nodesTable[column.parentId] as Row;
@@ -79,7 +78,6 @@ export default class Main {
         }
     }
 
-    // @TODO TEST the below
     getRowIndex(column:Column) {
         if (column instanceof Column) {
             const parentRow = this.nodesTable[column.parentId] as Row;
@@ -152,6 +150,8 @@ export default class Main {
                     parent.insertChild(container);
                     this.addToNodesTable(container.nodeId, container);
                 } else if (parent instanceof Column) {
+                    // @TODO what if child is not empty? e.g. there is a content holder inside the column?
+                    // As it stands, the implementation simply replaces the child, so no need to remove..
                     parent.insertChild(container);
                     this.addToNodesTable(container.nodeId, container);
                 } else {
