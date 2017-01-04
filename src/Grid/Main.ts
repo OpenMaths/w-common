@@ -58,6 +58,11 @@ export default class Main {
             return false;
     }
 
+    /**
+     * Returns the index of the Column instance provided as argument
+     * @param column {Column}
+     * @returns {number}
+     */
     getColumnIndex(column:Column) {
         if (column instanceof Column) {
             const parentRow = this.nodesTable[column.parentId] as Row;
@@ -78,6 +83,11 @@ export default class Main {
         }
     }
 
+    /**
+     * Returns the index of the closest parent Row instance
+     * @param column {Column}
+     * @returns {number}
+     */
     getRowIndex(column:Column) {
         if (column instanceof Column) {
             const parentRow = this.nodesTable[column.parentId] as Row;
@@ -104,6 +114,11 @@ export default class Main {
         }
     }
 
+    /**
+     * Returns the id of the closest parent Container instance
+     * @param column {Column}
+     * @returns {string}
+     */
     getParentContainerId(column:Column) {
         if (column instanceof Column) {
             const parentRow = this.nodesTable[column.parentId] as Row;
