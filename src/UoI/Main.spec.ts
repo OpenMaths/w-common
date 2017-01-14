@@ -1,17 +1,12 @@
 import {expect} from "chai";
-import {TitleProperty, LabelProperty, HtmlContentProperty, PropertyType} from "./Properties";
+import {forEach} from "ramda";
+import {TitleProperty, LabelProperty, HtmlContentProperty} from "./Properties";
 import {MercuryUoISample} from "./Mercury/Main";
-import {Some} from "../../lib/utils/src/Option/index";
 
 describe('UoI/Main', () => {
     describe('getTitleProperty', () => {
         it('should correctly extract the TitleProperty', () => {
             const uoi = MercuryUoISample();
-            uoi.properties = [];
-            uoi.properties.push(new TitleProperty('Test Title'));
-
-            const property = uoi.getTitleProperty();
-            expect(property instanceof Some).to.equal(true);
 
             const subject = property
                 .unwrap_or(new TitleProperty(''));
@@ -22,8 +17,6 @@ describe('UoI/Main', () => {
 
         it('should correctly extract the first TitleProperty if more are present', () => {
             const uoi = MercuryUoISample();
-            uoi.properties = [];
-            uoi.properties.push(new TitleProperty('Test Title'));
             uoi.properties.push(new TitleProperty('Title Added By Mistake'));
 
             const property = uoi.getTitleProperty();
@@ -54,8 +47,6 @@ describe('UoI/Main', () => {
     describe('getHtmlContentProperty', () => {
         it('should correctly extract the HtmlContentProperty', () => {
             const uoi = MercuryUoISample();
-            uoi.properties = [];
-            uoi.properties.push(new HtmlContentProperty('<div></div>'));
 
             const property = uoi.getHtmlContentProperty();
             expect(property instanceof Some).to.equal(true);
@@ -69,8 +60,6 @@ describe('UoI/Main', () => {
 
         it('should correctly extract the first HtmlContentProperty if more are present', () => {
             const uoi = MercuryUoISample();
-            uoi.properties = [];
-            uoi.properties.push(new HtmlContentProperty('<div></div>'));
             uoi.properties.push(new HtmlContentProperty('<small></small>'));
 
             const property = uoi.getHtmlContentProperty();
@@ -101,7 +90,7 @@ describe('UoI/Main', () => {
     describe('getLabelProperty', () => {
         it('should correctly extract a list of LabelProperties', () => {
             const uoi = MercuryUoISample();
-            uoi.properties = [];
+
             uoi.properties.push(new LabelProperty('Another Label'));
             uoi.properties.push(new LabelProperty('Yet Another Label'));
 
