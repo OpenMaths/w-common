@@ -74,7 +74,7 @@ export function sample2Rows2ColumnsEmptyContentHolder(prevState: App) {
     const createColumn2Event = new Events.CreateColumnEvent(createGraphEvent.graphId, createRowEvent.nodeId, 1);
     const createColumn3Event = new Events.CreateColumnEvent(createGraphEvent.graphId, createRow2Event.nodeId, 0);
 
-    const createContentHolderEvent = new Events.CreateContentHolderEvent(createGraphEvent.graphId, createColumnEvent.nodeId, 'contentIdentifier');
+    const createContentHolderEvent = new Events.CreateContentHolderEvent(createGraphEvent.graphId, createColumnEvent.nodeId, 'mercury:aHR0cHM6Ly90cmFja2NoYW5nZXMucG9zdGxpZ2h0LmNvbS9idWlsZGluZy1hd2Vzb21lLWNtcy1mMDM0MzQ0ZDhlZA==');
 
     return constructLatestState(prevState, [
         createGraphEvent, createContainerEvent, createRowEvent, createRow2Event,

@@ -30,4 +30,13 @@ export class MercuryUoI extends UoI {
     }
 }
 
+export class _MercuryUoI extends UoI {
+    constructor(uoi:UoI) {
+        super(uoi.id);
+
+        this.type = uoi.type;
+        this.properties = uoi.properties;
+    }
+}
+
 export const MercuryUoISample = () => new MercuryUoI('id', 'Title', '<div></div>');
