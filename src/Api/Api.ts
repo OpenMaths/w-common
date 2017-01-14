@@ -11,6 +11,7 @@ export interface IApi<T, U> {
     readonly operation:U;
     readonly params:ApiParams|undefined;
     readonly data:T|undefined;
+    readonly env:any;
     getMethod:() => ApiMethod;
     getBaseUrl:() => string;
     getUrl:() => string;
