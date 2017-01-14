@@ -1,7 +1,7 @@
 import {head, join, split, tail, trim} from "ramda";
 import {UoIId, UoIType} from "./Main";
 import * as StringUtils from "../Utils/String";
-import {ReadabilityUoIType} from "./Readability/Main";
+import {MercuryUoIType} from "./Mercury/Main";
 import {BorgUoIType} from "./Borg/Main";
 import {UnknownUoIType} from "./Unknown/Main";
 
@@ -46,10 +46,10 @@ export class UoIConstructor {
      */
     static getContentTypeFromRaw(raw:RawContentType):UoIType {
         switch (raw) {
-            case "readability":
-                return ReadabilityUoIType.ReadabilityContent;
             case "borg":
                 return BorgUoIType.BorgAnswer;
+            case "mercury":
+                return MercuryUoIType.MercuryContent;
             default:
                 return UnknownUoIType.Unknown;
         }

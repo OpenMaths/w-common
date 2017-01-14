@@ -3,7 +3,7 @@ import * as R from "ramda";
 import * as sinon from "sinon";
 import {RawSegmentDelimiter, UoIConstructor} from "./Constructor";
 import * as StringUtils from "../Utils/String";
-import {ReadabilityUoIType} from "./Readability/Main";
+import {MercuryUoIType} from "./Mercury/Main";
 import {BorgUoIType} from "./Borg/Main";
 import {UnknownUoIType} from "./Unknown/Main";
 
@@ -14,7 +14,7 @@ describe("Models/UoI/Constructor", () => {
 
     describe("getRawContentType", () => {
         const getRawContentTypeScenarios = [
-            ["readability:url", "readability"],
+            ["mercury:url", "mercury"],
             ["borg:identifier", "borg"],
             [" borg:query", "borg"],
             ["anotherSource:http://test.com", "anotherSource"],
@@ -35,7 +35,7 @@ describe("Models/UoI/Constructor", () => {
 
     describe("getRawContentIdentifier", () => {
         const getRawContentIdentifierScenarios = [
-            ["readability:url", "url"],
+            ["mercury:url", "url"],
             ["borg: query ", "query"],
             ["anotherSource:http://test.com", "http://test.com"],
             ["differentSource:http://test.com?query=something&anotherQuery=a:b", "http://test.com?query=something&anotherQuery=a:b"],
@@ -55,7 +55,7 @@ describe("Models/UoI/Constructor", () => {
 
     describe("getContentType", () => {
         const getContentTypeScenarios = [
-            ["readability", ReadabilityUoIType.ReadabilityContent],
+            ["mercury", MercuryUoIType.MercuryContent],
             ["borg", BorgUoIType.BorgAnswer],
             ["Borg", UnknownUoIType.Unknown],
             ["unknown", UnknownUoIType.Unknown],
@@ -101,7 +101,7 @@ describe("Models/UoI/Constructor", () => {
 
     describe("constructor", () => {
         let sandbox:any,
-            rawReadabilityIdentifier = StringUtils.encodeBase64("http://theguardian.com"),
+            rawMercuryIdentifier = StringUtils.encodeBase64("http://theguardian.com"),
             rawBorgIdentifier = StringUtils.encodeBase64("How to do this?");
 
         beforeEach(() => {
@@ -112,10 +112,10 @@ describe("Models/UoI/Constructor", () => {
             sandbox.restore();
         });
 
-        it("[ReadabilityContent] correctly assigns contentType upon construction", () => {
+        it("[MercuryContent] correctly assigns contentType upon construction", () => {
             const
                 spy = sandbox.spy(UoIConstructor, "getContentTypeFromRaw"),
-                constructor = new UoIConstructor("readability:" + rawReadabilityIdentifier);
+                constructor = new UoIConstructor("mercury:" + rawMercuryIdentifier);
 
             expect(spy.calledOnce).to.equal(true);
             expect(R.equals(typeof constructor.contentType, undefined)).to.equal(false);
@@ -130,10 +130,10 @@ describe("Models/UoI/Constructor", () => {
             expect(R.equals(typeof constructor.contentType, undefined)).to.equal(false);
         });
 
-        it("[ReadabilityContent] correctly assigns contentIdentifier upon construction", () => {
+        it("[MercuryContent] correctly assigns contentIdentifier upon construction", () => {
             const
                 spy = sandbox.spy(UoIConstructor, "getContentIdentifierFromRaw"),
-                constructor = new UoIConstructor("readability:" + rawReadabilityIdentifier);
+                constructor = new UoIConstructor("mercury:" + rawMercuryIdentifier);
 
             expect(spy.calledOnce).to.equal(true);
             expect(R.equals(typeof constructor.contentIdentifier, undefined)).to.equal(false);

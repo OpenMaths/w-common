@@ -1,18 +1,18 @@
 import {expect} from "chai";
 import {forEach} from "ramda";
 import {TitleProperty, LabelProperty, HtmlContentProperty} from "./Properties";
-import {ReadabilityUoISample} from "./Readability/Main";
+import {MercuryUoISample} from "./Mercury/Main";
 
 describe('UoI/Main', () => {
     describe('getTitleProperty', () => {
         it('should correctly extract the TitleProperty', () => {
-            const uoi = ReadabilityUoISample();
+            const uoi = MercuryUoISample();
 
             expect(uoi.getTitleProperty() instanceof TitleProperty).to.equal(true);
         });
 
         it('should correctly extract the first TitleProperty if more are present', () => {
-            const uoi = ReadabilityUoISample();
+            const uoi = MercuryUoISample();
             uoi.properties.push(new TitleProperty('Title Added By Mistake'));
 
             expect(uoi.getTitleProperty() instanceof TitleProperty).to.equal(true);
@@ -20,7 +20,7 @@ describe('UoI/Main', () => {
         });
 
         it('should correctly extract a TitleProperty with empty title if no TitleProperty was found', () => {
-            const uoi = ReadabilityUoISample();
+            const uoi = MercuryUoISample();
             uoi.properties = [];
 
             expect(uoi.getTitleProperty() instanceof TitleProperty).to.equal(true);
@@ -30,13 +30,13 @@ describe('UoI/Main', () => {
 
     describe('getHtmlContentProperty', () => {
         it('should correctly extract the HtmlContentProperty', () => {
-            const uoi = ReadabilityUoISample();
+            const uoi = MercuryUoISample();
 
             expect(uoi.getHtmlContentProperty() instanceof HtmlContentProperty).to.equal(true);
         });
 
         it('should correctly extract the first HtmlContentProperty if more are present', () => {
-            const uoi = ReadabilityUoISample();
+            const uoi = MercuryUoISample();
             uoi.properties.push(new HtmlContentProperty('<small></small>'));
 
             expect(uoi.getHtmlContentProperty() instanceof HtmlContentProperty).to.equal(true);
@@ -44,7 +44,7 @@ describe('UoI/Main', () => {
         });
 
         it('should correctly extract a HtmlContentProperty with empty content if no HtmlContentProperty was found', () => {
-            const uoi = ReadabilityUoISample();
+            const uoi = MercuryUoISample();
             uoi.properties = [];
 
             expect(uoi.getHtmlContentProperty() instanceof HtmlContentProperty).to.equal(true);
@@ -54,7 +54,7 @@ describe('UoI/Main', () => {
 
     describe('getLabelProperty', () => {
         it('should correctly extract a list of LabelProperties', () => {
-            const uoi = ReadabilityUoISample();
+            const uoi = MercuryUoISample();
 
             uoi.properties.push(new LabelProperty('Another Label'));
             uoi.properties.push(new LabelProperty('Yet Another Label'));
@@ -69,7 +69,7 @@ describe('UoI/Main', () => {
         });
 
         it('should correctly return an empty list if no LabelProperty has been found', () => {
-            const uoi = ReadabilityUoISample();
+            const uoi = MercuryUoISample();
             uoi.properties = [];
 
             expect(uoi.getLabelProperties().length).to.equal(0);

@@ -2,12 +2,12 @@ import {find, filter} from "ramda";
 import Connection from "./Connections";
 import Property, {TitleProperty, LabelProperty, HtmlContentProperty} from "./Properties";
 import {BorgUoIType} from "./Borg/Main";
-import {ReadabilityUoIType} from "./Readability/Main";
+import {MercuryUoIType} from "./Mercury/Main";
 import {UnknownUoIType} from "./Unknown/Main";
 import * as StringUtils from "../Utils/String";
 
 export type UoIId = string;
-export type UoIType = BorgUoIType | ReadabilityUoIType | UnknownUoIType;
+export type UoIType = BorgUoIType | UnknownUoIType | MercuryUoIType;
 
 export interface IUoI {
     id:UoIId;
