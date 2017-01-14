@@ -1,10 +1,11 @@
-import {find, filter} from "ramda";
+import {equals, find, filter} from "ramda";
 import Connection from "./Connections";
-import Property, {TitleProperty, LabelProperty, HtmlContentProperty} from "./Properties";
+import Property, {TitleProperty, LabelProperty, HtmlContentProperty, PropertyType} from "./Properties";
 import {BorgUoIType} from "./Borg/Main";
 import {MercuryUoIType} from "./Mercury/Main";
 import {UnknownUoIType} from "./Unknown/Main";
 import * as StringUtils from "../Utils/String";
+import {Some, Option} from "../../lib/utils/src/Option/index";
 
 export type UoIId = string;
 export type UoIType = BorgUoIType | UnknownUoIType | MercuryUoIType;
@@ -14,7 +15,8 @@ export interface IUoI {
     type:UoIType;
     properties:Property<any>[];
     connections:Connection[];
-    getTitleProperty:() => TitleProperty;
+    getTitleProperty:() => Option<TitleProperty>;
+    getHtmlContentProperty:() => Option<HtmlContentProperty>;
     getLabelProperties:() => LabelProperty[];
 }
 
@@ -32,28 +34,27 @@ export default class UoI implements IUoI {
     }
 
     /**
-     * Returns the TitleProperty of this UoI Instance, empty TitleProperty when none found
-     * @returns {TitleProperty}
+     * Returns the TitleProperty of this UoI Instance, wrapped in an Option
+     * @returns {Option<TitleProperty>}
      */
-    getTitleProperty():TitleProperty {
+    getTitleProperty():Option<TitleProperty> {
         const
-            functor = (property:Property<any>) => property instanceof TitleProperty,
+            functor = (property:Property<any>) => equals(property.propertyType, PropertyType.Title),
             prop = find(functor, this.properties);
 
-        // @TODO change to "Untitled" rather than empty string?
-        return prop ? (prop as TitleProperty) : (new TitleProperty(''));
+        return new Some(prop as TitleProperty);
     }
 
     /**
-     * Returns the HtmlContentProperty of this UoI Instance, empty HtmlContentProperty when none found
-     * @returns {HtmlContentProperty}
+     * Returns the HtmlContentProperty of this UoI Instance, wrapped in an Option
+     * @returns {Option<HtmlContentProperty>}
      */
-    getHtmlContentProperty():HtmlContentProperty {
+    getHtmlContentProperty():Option<HtmlContentProperty> {
         const
-            functor = (property:Property<any>) => property instanceof HtmlContentProperty,
+            functor = (property:Property<any>) => equals(property.propertyType, PropertyType.HtmlContent),
             prop = find(functor, this.properties);
 
-        return prop ? (prop as HtmlContentProperty) : (new HtmlContentProperty(''));
+        return new Some(prop as HtmlContentProperty);
     }
 
     /**
@@ -61,7 +62,7 @@ export default class UoI implements IUoI {
      * @returns {LabelProperty[]}
      */
     getLabelProperties():LabelProperty[] {
-        const functor = (property:Property<any>) => property instanceof LabelProperty;
+        const functor = (property:Property<any>) => equals(property.propertyType, PropertyType.Label);
 
         return filter(functor, this.properties);
     }
