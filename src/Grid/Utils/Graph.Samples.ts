@@ -81,3 +81,27 @@ export function sample2Rows2ColumnsEmptyContentHolder(prevState: App) {
         createColumnEvent, createColumn2Event, createColumn3Event, createContentHolderEvent
     ]);
 }
+
+export function sample1Row2ColumnsEmptyContentHolder2Rows(prevState: App) {
+    const createGraphEvent = new Events.CreateGraphEvent();
+    const createContainerEvent = new Events.CreateContainerEvent(createGraphEvent.graphId, createGraphEvent.nodeId);
+    const createRowEvent = new Events.CreateRowEvent(createGraphEvent.graphId, createContainerEvent.nodeId, 0);
+
+    const createColumnEvent = new Events.CreateColumnEvent(createGraphEvent.graphId, createRowEvent.nodeId, 0);
+    const createColumn2Event = new Events.CreateColumnEvent(createGraphEvent.graphId, createRowEvent.nodeId, 1);
+
+    const createContainer2Event = new Events.CreateContainerEvent(createGraphEvent.graphId, createColumn2Event.nodeId);
+    const createRow2Event = new Events.CreateRowEvent(createGraphEvent.graphId, createContainer2Event.nodeId, 0);
+    const createColumn3Event = new Events.CreateColumnEvent(createGraphEvent.graphId, createRow2Event.nodeId, 0);
+    const createRow3Event = new Events.CreateRowEvent(createGraphEvent.graphId, createContainer2Event.nodeId, 1);
+    const createColumn4Event = new Events.CreateColumnEvent(createGraphEvent.graphId, createRow3Event.nodeId, 0);
+
+    const createContentHolderEvent = new Events.CreateContentHolderEvent(createGraphEvent.graphId, createColumnEvent.nodeId, 'mercury:aHR0cHM6Ly9mYWNlYm9vay5naXRodWIuaW8vcmVhY3QvZG9jcy9yZWFjdC1jb21wb25lbnQuaHRtbA==');
+
+    return constructLatestState(prevState, [
+        createGraphEvent, createContainerEvent, createRowEvent,
+        createColumnEvent, createColumn2Event,
+      createContainer2Event, createRow2Event, createColumn3Event, createRow3Event, createColumn4Event,
+        createContentHolderEvent
+    ]);
+}
