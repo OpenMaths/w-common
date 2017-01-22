@@ -31,6 +31,18 @@ export default class Main {
             case Events.Action.CreateContentHolder:
                 this.createContentHolder(event);
                 break;
+                //@TODO add tests
+            case Events.Action.RemoveRow:
+                this.removeRow(event);
+                break;
+            //@TODO add tests
+            case Events.Action.RemoveColumn:
+                this.removeColumn(event);
+                break;
+            //@TODO add tests
+            case Events.Action.RemoveContentHolder:
+                this.removeContentHolder(event);
+                break;
         }
 
         return this;
@@ -51,7 +63,7 @@ export default class Main {
      * @param {string|null} nodeId
      * @returns {boolean}
      */
-    isInNodesTable(nodeId:string|null) {
+    isInNodesTable(nodeId:string) {
         if (nodeId)
             return !R.equals(typeof this.nodesTable[nodeId], 'undefined');
         else
@@ -158,7 +170,7 @@ export default class Main {
 
             if (this.isInNodesTable(event.parentId)) {
                 const
-                    parentId = event.parentId as string,
+                    parentId = event.parentId,
                     parent = this.nodesTable[parentId] as Graph|Column;
 
                 if (parent instanceof Graph) {
@@ -191,7 +203,7 @@ export default class Main {
 
             if (this.isInNodesTable(event.parentId)) {
                 const
-                    parentId = event.parentId as string,
+                    parentId = event.parentId,
                     parent = this.nodesTable[parentId] as Container;
 
                 if (parent instanceof Container) {
@@ -219,7 +231,7 @@ export default class Main {
 
             if (this.isInNodesTable(event.parentId)) {
                 const
-                    parentId = event.parentId as string,
+                    parentId = event.parentId,
                     parent = this.nodesTable[parentId] as Row;
 
                 if (parent instanceof Row) {
@@ -247,7 +259,7 @@ export default class Main {
 
             if (this.isInNodesTable(event.parentId)) {
                 const
-                    parentId = event.parentId as string,
+                    parentId = event.parentId,
                     parent = this.nodesTable[parentId] as Column;
 
                 if (parent instanceof Column) {
@@ -265,11 +277,72 @@ export default class Main {
         }
     }
 
-    // removeRow(event:Events.RemoveRowEvent) {
-    //     const parentId = event.parentId || '';
-    //     const parent:Container = this.nodesTable[parentId];
-    //     parent.remove(event.nodeId);
-    //     delete this.nodesTable[event.nodeId];
-    //     // @TODO delete all children of this node from nodesTable?
-    // }
+    // @TODO test
+    removeContentHolder(event:Events.RemoveContentHolderEvent) {
+        if (event instanceof Events.RemoveContentHolderEvent) {
+            if (this.isInNodesTable(event.parentId)) {
+                const
+                  parentId = event.parentId,
+                  parent = this.nodesTable[parentId] as Column;
+
+                if (parent instanceof Column) {
+                    parent.removeChild();
+                    delete this.nodesTable[event.nodeId]; // @TODO create a method to handle this and all potential children
+                } else {
+                    // @TODO test the below
+                    throw new Error('ContentHolder parent can only be Column instance');
+                }
+            } else {
+                throw new Error('ContentHolder parent not found in nodesTable');
+            }
+        } else {
+            throw new Error('Event for removeContentHolder not an instance of RemoveContentHolderEvent');
+        }
+    }
+
+    // @TODO test
+    removeColumn(event:Events.RemoveColumnEvent) {
+        if (event instanceof Events.RemoveColumnEvent) {
+            if (this.isInNodesTable(event.parentId)) {
+                const
+                  parentId = event.parentId,
+                  parent = this.nodesTable[parentId] as Row;
+
+                if (parent instanceof Row) {
+                    parent.removeChild(event.nodeId);
+                    delete this.nodesTable[event.nodeId]; // @TODO create a method to handle this and all potential children
+                } else {
+                    // @TODO test the below
+                    throw new Error('Column parent can only be Row instance');
+                }
+            } else {
+                throw new Error('Column parent not found in nodesTable');
+            }
+        } else {
+            throw new Error('Event for removeColumn not an instance of RemoveColumnEvent');
+        }
+    }
+
+    // @TODO test
+    removeRow(event:Events.RemoveRowEvent) {
+        if (event instanceof Events.RemoveRowEvent) {
+            if (this.isInNodesTable(event.parentId)) {
+                const
+                  parentId = event.parentId,
+                  parent = this.nodesTable[parentId] as Container;
+
+                if (parent instanceof Container) {
+                    parent.removeChild(event.nodeId);
+                    delete this.nodesTable[event.nodeId]; // @TODO create a method to handle this and all potential children
+                } else {
+                    // @TODO test the below
+                    throw new Error('Row parent can only be Container instance');
+                }
+            } else {
+                throw new Error('Row parent not found in nodesTable');
+            }
+        } else {
+            throw new Error('Event for removeRow not an instance of RemoveRowEvent');
+        }
+    }
 }

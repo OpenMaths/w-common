@@ -3,10 +3,10 @@ import {CreateColumnEvent} from './GraphEvent'
 import Container from './Container'
 import ContentHolder from './ContentHolder'
 
-export default class Column implements ISingleChildNode<Container|ContentHolder> {
+export default class Column implements ISingleChildNode<Container|ContentHolder|null> {
     readonly nodeId:string;
     readonly parentId:string;
-    child:Container|ContentHolder; // @TODO this should be optional / possibly undefined......
+    child:Container|ContentHolder|null; // @TODO this should be optional / possibly undefined......
 
     constructor(event:CreateColumnEvent) {
         this.nodeId = event.nodeId;
@@ -15,5 +15,10 @@ export default class Column implements ISingleChildNode<Container|ContentHolder>
 
     insertChild(child:Container|ContentHolder) {
         this.child = child;
+    }
+
+    // @TODO add tests
+    removeChild() {
+        this.child = null;
     }
 }

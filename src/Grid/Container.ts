@@ -5,10 +5,13 @@ import Row from './Row'
 
 export default class Container implements INode<Row> {
     readonly nodeId:string;
+    readonly parentId:string;
     children:Row[];
 
     constructor(event:CreateContainerEvent) {
         this.nodeId = event.nodeId;
+        // @TODO add tests
+        this.parentId = event.parentId;
         this.children = [];
     }
 

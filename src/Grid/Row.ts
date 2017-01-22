@@ -22,15 +22,13 @@ export default class Row implements INode<Column> {
         }
     };
 
+    // @TODO update tests
     removeChild(nodeId:string) {
-        try {
-            const index = R.findIndex((child:Column) => child.nodeId === nodeId, this.children);
+        let index = R.findIndex((child:Column) => child.nodeId === nodeId, this.children);
 
-            // @TODO should the below throw?
-            if (!R.equals(index, -1))
-                this.children.splice(index, 1);
-        } catch (e) {
-            throw new TypeError('Some of the children are not of type Column');
-        }
+        if (!R.equals(index, -1))
+            this.children.splice(index, 1);
+        else
+            throw new ReferenceError(`Column ${nodeId} not found in ${this.nodeId}'s children`);
     };
 }
