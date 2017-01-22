@@ -3,7 +3,7 @@ import * as shortid from 'shortid'
 
 export enum Action {
     CreateGraph = 1, CreateContainer, CreateRow, CreateColumn, CreateContentHolder,
-    RemoveRow, RemoveColumn, RemoveContentHolder
+    RemoveContainer, RemoveRow, RemoveColumn, RemoveContentHolder
 }
 
 export const GraphNodeIdPrefix = 'g_';
@@ -81,6 +81,12 @@ export class CreateContentHolderEvent extends GraphEvent {
     constructor(graphId:string, parentId:string, rawUoIConstructor:string) {
         const nodeId = generateNodeId(Action.CreateContentHolder);
         super(graphId, parentId, nodeId, Action.CreateContentHolder, undefined, rawUoIConstructor);
+    }
+}
+
+export class RemoveContainerEvent extends GraphEvent {
+    constructor(graphId:string, parentId:string, nodeId:string) {
+        super(graphId, parentId, nodeId, Action.RemoveContainer);
     }
 }
 
