@@ -13,6 +13,13 @@ describe('Models/Grid/Container', () => {
             expect(container.nodeId).to.equal(CreateContainerEvent.nodeId);
         });
 
+        it('assigns parentId upon construction', () => {
+            const CreateContainerEvent = new Events.CreateContainerEvent('graphId', 'parentId');
+
+            const container = new Container(CreateContainerEvent);
+            expect(container.parentId).to.equal(CreateContainerEvent.parentId);
+        });
+
         it('creates empty list of children upon construction', () => {
             const CreateContainerEvent = new Events.CreateContainerEvent('graphId', 'parentId');
 
@@ -52,19 +59,14 @@ describe('Models/Grid/Container', () => {
 
         it('correctly removes a child', () => {
             container.children[insertIndex] = row;
-            expect(R.equals(typeof container.children[insertIndex], 'undefined')).to.equal(false);
+            expect(typeof container.children[insertIndex]).not.to.equal('undefined');
 
             container.removeChild(row.nodeId);
-            expect(R.equals(typeof container.children[insertIndex], 'undefined')).to.equal(true);
+            expect(typeof container.children[insertIndex]).to.equal('undefined');
         });
 
-        it('only removes a child when correct nodeId found in children list', () => {
-            container.children[insertIndex] = row;
-            expect(R.equals(typeof container.children[insertIndex], 'undefined')).to.equal(false);
-
-            // @TODO should the below throw when index not found? Currently there is only an if statement
-            container.removeChild('non-existent-id');
-            expect(R.equals(typeof container.children[insertIndex], 'undefined')).to.equal(false);
+        it('throws if nodeId not found in children list', () => {
+            expect(() => container.removeChild('non-existent-id')).to.throw();
         });
     });
 });

@@ -121,6 +121,21 @@ describe('Models/Grid/GraphEvent', () => {
         });
     });
 
+    describe('RemoveColumnEvent', () => {
+        const graphId = 'graphId';
+
+        it('returns appropriate GraphEvent', () => {
+            const event = new Event.RemoveColumnEvent(graphId, 'parentId', 'nodeId');
+
+            expect(event instanceof Event.GraphEvent).to.equal(true);
+            expect(event.graphId).to.equal(graphId);
+            expect(event.parentId).to.equal('parentId');
+            expect(event.nodeId).to.equal('nodeId');
+            expect(event.actionType).to.equal(Event.Action.RemoveColumn);
+            expect(event.timestamp instanceof Date).to.equal(true);
+        });
+    });
+
     describe('RemoveContentHolderEvent', () => {
         const graphId = 'graphId';
 

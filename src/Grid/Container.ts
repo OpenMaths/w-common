@@ -10,7 +10,6 @@ export default class Container implements INode<Row> {
 
     constructor(event:CreateContainerEvent) {
         this.nodeId = event.nodeId;
-        // @TODO add tests
         this.parentId = event.parentId;
         this.children = [];
     }
@@ -23,15 +22,13 @@ export default class Container implements INode<Row> {
         }
     };
 
+    // @TODO update tests
     removeChild(nodeId:string) {
-        try {
-            const index = R.findIndex((child:Row) => child.nodeId === nodeId, this.children);
+        let index = R.findIndex((child:Row) => R.equals(child.nodeId, nodeId), this.children);
 
-            // @TODO should the below throw?
-            if (!R.equals(index, -1))
-                this.children.splice(index, 1);
-        } catch (e) {
-            throw new TypeError('Some of the children are not of type Row');
-        }
+        if (!R.equals(index, -1))
+            this.children.splice(index, 1);
+        else
+            throw new ReferenceError(`Row ${nodeId} not found in ${this.nodeId}'s children`);
     };
 }

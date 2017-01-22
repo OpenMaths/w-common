@@ -9,7 +9,6 @@ export interface ISingleChildNode<T> {
     readonly nodeId:string;
     child:T;
     insertChild(node:T):void;
-    // remove(node:T):void;
 }
 
 export interface IContentHolderChildNode {

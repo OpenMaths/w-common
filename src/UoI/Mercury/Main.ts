@@ -25,7 +25,7 @@ export class MercuryUoI extends UoI {
 
         this.type = MercuryUoIType.MercuryContent;
         this.properties.push(new TitleProperty(title));
-        this.properties.push(new LabelProperty('Website'));
+        this.properties.push(new LabelProperty('Web Content'));
         this.properties.push(new HtmlContentProperty(content));
     }
 }

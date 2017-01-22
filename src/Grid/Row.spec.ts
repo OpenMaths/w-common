@@ -60,19 +60,14 @@ describe('Models/Grid/Row', () => {
 
         it('correctly removes a child', () => {
             row.children[insertIndex] = column;
-            expect(R.equals(typeof row.children[insertIndex], 'undefined')).to.equal(false);
+            expect(typeof row.children[insertIndex]).not.to.equal('undefined');
 
             row.removeChild(column.nodeId);
-            expect(R.equals(typeof row.children[insertIndex], 'undefined')).to.equal(true);
+            expect(typeof row.children[insertIndex]).to.equal('undefined');
         });
 
-        it('only removes a child when correct nodeId found in children list', () => {
-            row.children[insertIndex] = column;
-            expect(R.equals(typeof row.children[insertIndex], 'undefined')).to.equal(false);
-
-            // @TODO should the below throw when index not found? Currently there is only an if statement
-            row.removeChild('non-existent-id');
-            expect(R.equals(typeof row.children[insertIndex], 'undefined')).to.equal(false);
+        it('throws if nodeId not found in children list', () => {
+            expect(() => row.removeChild('non-existent-id')).to.throw();
         });
     });
 });

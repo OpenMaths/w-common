@@ -22,9 +22,8 @@ export default class Row implements INode<Column> {
         }
     };
 
-    // @TODO update tests
     removeChild(nodeId:string) {
-        let index = R.findIndex((child:Column) => child.nodeId === nodeId, this.children);
+        let index = R.findIndex((child:Column) => R.equals(child.nodeId, nodeId), this.children);
 
         if (!R.equals(index, -1))
             this.children.splice(index, 1);

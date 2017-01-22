@@ -84,21 +84,18 @@ export class CreateContentHolderEvent extends GraphEvent {
     }
 }
 
-// @TODO test
 export class RemoveRowEvent extends GraphEvent {
     constructor(graphId:string, parentId:string, nodeId:string) {
         super(graphId, parentId, nodeId, Action.RemoveRow);
     }
 }
 
-// @TODO test
 export class RemoveColumnEvent extends GraphEvent {
     constructor(graphId:string, parentId:string, nodeId:string) {
         super(graphId, parentId, nodeId, Action.RemoveColumn);
     }
 }
 
-// @TODO test
 export class RemoveContentHolderEvent extends GraphEvent {
     constructor(graphId:string, parentId:string, nodeId:string) {
         super(graphId, parentId, nodeId, Action.RemoveContentHolder);
