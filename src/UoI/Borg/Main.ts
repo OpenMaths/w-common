@@ -1,14 +1,14 @@
 import UoI from "../Main";
 import {TitleProperty, LabelProperty, BorgAnswerProperty} from "../Properties";
 
-enum Source {stackoverflow}
+export enum Source {stackoverflow}
 
-interface ImportMeta {
+export interface ImportMeta {
     Source:Source;
     Id:string;
 }
 
-interface ISolution {
+export interface ISolution {
     Source:string[];
     Score:number;
 }

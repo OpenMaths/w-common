@@ -28,7 +28,7 @@ export class ErrorItem {
     }
 }
 
-class Error {
+export class Error {
     code:Response;
     data:ErrorItem;
 

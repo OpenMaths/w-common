@@ -1,11 +1,12 @@
 import {equals, find, filter} from "ramda";
+import {Some, Option} from "tsp-monads";
+
 import Connection from "./Connections";
 import Property, {TitleProperty, LabelProperty, HtmlContentProperty, PropertyType} from "./Properties";
 import {BorgUoIType} from "./Borg/Main";
 import {MercuryUoIType} from "./Mercury/Main";
 import {UnknownUoIType} from "./Unknown/Main";
 import * as StringUtils from "../Utils/String";
-import {Some, Option} from "../../lib/utils/src/Option/index";
 
 export type UoIId = string;
 export type UoIType = BorgUoIType | UnknownUoIType | MercuryUoIType;
@@ -42,7 +43,7 @@ export default class UoI implements IUoI {
             functor = (property:Property<any>) => equals(property.propertyType, PropertyType.Title),
             prop = find(functor, this.properties);
 
-        return new Some(prop as TitleProperty);
+        return Some(prop as TitleProperty);
     }
 
     /**
@@ -54,7 +55,7 @@ export default class UoI implements IUoI {
             functor = (property:Property<any>) => equals(property.propertyType, PropertyType.HtmlContent),
             prop = find(functor, this.properties);
 
-        return new Some(prop as HtmlContentProperty);
+        return Some(prop as HtmlContentProperty);
     }
 
     /**

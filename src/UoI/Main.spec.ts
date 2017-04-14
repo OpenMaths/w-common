@@ -1,7 +1,7 @@
 import {expect} from "chai";
+
 import {TitleProperty, LabelProperty, HtmlContentProperty, PropertyType} from "./Properties";
 import {MercuryUoISample} from "./Mercury/Main";
-import {Some} from "../../lib/utils/src/Option/index";
 
 describe('UoI/Main', () => {
     describe('getTitleProperty', () => {
@@ -11,7 +11,7 @@ describe('UoI/Main', () => {
             uoi.properties.push(new TitleProperty('Test Title'));
 
             const property = uoi.getTitleProperty();
-            expect(property instanceof Some).to.equal(true);
+            expect(property.is_some()).to.equal(true);
 
             const subject = property
                 .unwrap_or(new TitleProperty(''));
@@ -27,7 +27,7 @@ describe('UoI/Main', () => {
             uoi.properties.push(new TitleProperty('Title Added By Mistake'));
 
             const property = uoi.getTitleProperty();
-            expect(property instanceof Some).to.equal(true);
+            expect(property.is_some()).to.equal(true);
 
             const subject = property
                 .unwrap_or(new TitleProperty(''));
@@ -41,7 +41,7 @@ describe('UoI/Main', () => {
             uoi.properties = [];
 
             const property = uoi.getTitleProperty();
-            expect(property instanceof Some).to.equal(true);
+            expect(property.is_none()).to.equal(true);
 
             const subject = property
                 .unwrap_or(new TitleProperty(''));
@@ -58,7 +58,7 @@ describe('UoI/Main', () => {
             uoi.properties.push(new HtmlContentProperty('<div></div>'));
 
             const property = uoi.getHtmlContentProperty();
-            expect(property instanceof Some).to.equal(true);
+            expect(property.is_some()).to.equal(true);
 
             const subject = property
                 .unwrap_or(new HtmlContentProperty(''));
@@ -74,7 +74,7 @@ describe('UoI/Main', () => {
             uoi.properties.push(new HtmlContentProperty('<small></small>'));
 
             const property = uoi.getHtmlContentProperty();
-            expect(property instanceof Some).to.equal(true);
+            expect(property.is_some()).to.equal(true);
 
             const subject = property
                 .unwrap_or(new HtmlContentProperty(''));
@@ -88,7 +88,7 @@ describe('UoI/Main', () => {
             uoi.properties = [];
 
             const property = uoi.getHtmlContentProperty();
-            expect(property instanceof Some).to.equal(true);
+            expect(property.is_none()).to.equal(true);
 
             const subject = property
                 .unwrap_or(new HtmlContentProperty(''));

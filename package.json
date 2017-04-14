@@ -18,15 +18,23 @@
   "dependencies": {
     "@reactivex/rxjs": "5.0.0-beta.12",
     "axios": "0.15.2",
-    "crypto-js": "3.1.7",
-    "dotenv": "2.0.0",
-    "ramda": "0.22.1",
-    "shortid": "2.2.6",
-    "typescript": "2.0.3"
+    "crypto-js": "^3.1.9-1",
+    "dotenv": "^4.0.0",
+    "ramda": "^0.23.0",
+    "shortid": "^2.2.8",
+    "tsp-monads": "^2.0.0",
+    "typescript": "2.3"
   },
   "devDependencies": {
+    "@types/chai": "^3.5.0",
+    "@types/crypto-js": "^3.1.33",
+    "@types/mocha": "^2.2.40",
+    "@types/node": "^7.0.12",
+    "@types/ramda": "^0.0.6",
+    "@types/shortid": "^0.0.28",
+    "@types/sinon": "^2.1.2",
     "chai": "3.5.0",
-    "mocha": "3.1.0",
-    "sinon": "2.0.0-pre.2"
+    "mocha": "^3.2.0",
+    "sinon": "^2.1.0"
   }
 }

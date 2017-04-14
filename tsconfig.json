@@ -1,8 +1,15 @@
 {
   "compilerOptions": {
+    "alwaysStrict": true,
+    "declaration": true,
     "diagnostics": true,
     "forceConsistentCasingInFileNames": true,
+    "lib": [
+      "es2015",
+      "dom"
+    ],
     "module": "commonjs",
+    "moduleResolution": "node",
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,
@@ -16,7 +23,6 @@
     "target": "es5"
   },
   "include": [
-    "./typings/index.d.ts",
     "./src/**/*"
   ],
   "exclude": [
