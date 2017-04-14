@@ -30,6 +30,7 @@
     "@types/crypto-js": "^3.1.33",
     "@types/mocha": "^2.2.40",
     "@types/node": "^7.0.12",
+    "@types/ramda": "^0.0.6",
     "@types/shortid": "^0.0.28",
     "@types/sinon": "^2.1.2",
     "chai": "3.5.0",
