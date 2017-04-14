@@ -95,7 +95,7 @@ describe("Models/UoI/Constructor", () => {
         });
 
         it("throws if invalid base64 string provided", () => {
-            expect(UoIConstructor.getContentIdentifierFromRaw("  ")).to.equal('');
+            expect(UoIConstructor.getContentIdentifierFromRaw("@")).to.equal('');
         });
     });
 

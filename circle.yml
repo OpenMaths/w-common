@@ -1,14 +1,10 @@
 machine:
   node:
     version: 6.6.0
-  environment:
-    NODE_ENV: development
+#  environment:
+#    NODE_ENV: development
 
 dependencies:
-  pre:
-    - npm install yarn -g --silent
-    - cp .env.example .env
-    - cp .env .env.production
   override:
     - yarn
   post:
