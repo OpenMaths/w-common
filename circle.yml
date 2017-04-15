@@ -1,8 +1,6 @@
 machine:
   node:
     version: 6.6.0
-#  environment:
-#    NODE_ENV: development
 
 dependencies:
   override:
